@@ -1735,3 +1735,17 @@ details[open] .faq-icon { transform: rotate(45deg); }
   .hp-screen .cta-row .btn { width: 100%; justify-content: center; white-space: normal; text-align: center; }
   .hp-vs-price { white-space: normal; }
 }
+
+/* Prices never break across lines on narrow screens */
+.pricing-table td:last-child, .audit-price, .system-price { white-space: nowrap; }
+@media (max-width: 640px) {
+  .btn { white-space: normal; text-align: center; }
+}
+/* Grid columns may shrink below their longest word on phones */
+.two-col > *, .methodology-grid > *, .aside-grid > * { min-width: 0; }
+h1, h2, h3, .method-item-title { overflow-wrap: break-word; }
+.stack-grid { display: grid; gap: 24px; max-width: 900px; }
+.stack-grid--2 { grid-template-columns: 1fr 1fr; }
+.stack-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.stack-grid > * { min-width: 0; }
+@media (max-width: 640px) { .stack-grid--2, .stack-grid--3 { grid-template-columns: 1fr; } }
