@@ -1638,6 +1638,17 @@ details[open] .faq-icon { transform: rotate(45deg); }
 .hp-system-result strong { font-family: var(--font-display); font-weight: 600; }
 .hp-systems .system-price { font-size: clamp(20px, 3.4vh, 26px); padding-top: clamp(10px, 2vh, 18px); }
 
+.hp-offer { display: grid; grid-template-columns: 1.35fr 1fr; gap: 2px; margin-top: var(--hp-gap); background-color: var(--border); }
+.hp-offer > div { background-color: var(--surface); padding: clamp(18px, 3.2vh, 36px) clamp(24px, 3vw, 40px); display: flex; flex-direction: column; }
+.hp-offer h3 { font-size: clamp(17px, min(1.8vw, 3.2vh), 22px); text-transform: none; line-height: 1.25; margin-bottom: 8px; }
+.hp-offer .hp-system-name { color: #6fb0ba; }
+.hp-offer-label { font-family: var(--font-display); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-secondary); margin-bottom: 6px; }
+.hp-offer-list li { position: relative; padding: clamp(6px, 1.3vh, 11px) 0 clamp(6px, 1.3vh, 11px) 26px; border-top: 1px solid var(--border); font-size: clamp(15px, 2.5vh, 17px); line-height: 1.45; }
+.hp-offer-list li::before { content: '✓'; position: absolute; left: 0; font-family: var(--font-display); font-weight: 600; color: var(--teal); }
+.hp-offer-side .hp-system-result { font-size: clamp(15px, 2.6vh, 18px); line-height: 1.55; color: var(--text); margin: 0 0 auto; padding-top: 0; border-top: 0; }
+.hp-offer-side .system-price { font-size: clamp(26px, 5vh, 40px); padding-top: clamp(16px, 3vh, 28px); border-top: 1px solid var(--border); margin-top: clamp(16px, 3vh, 28px); }
+@media (max-width: 900px) { .hp-offer { grid-template-columns: 1fr; } }
+
 /* 07 first step */
 .hp-starts { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: var(--hp-gap); background-color: var(--border); }
 .hp-start { background-color: var(--bg); padding: clamp(18px, 3.2vh, 36px) 32px; display: flex; flex-direction: column; }
