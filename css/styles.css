@@ -1696,6 +1696,25 @@ details[open] .faq-icon { transform: rotate(45deg); }
 .hp-account-label { font-family: var(--font-display); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-secondary); margin-bottom: 10px; }
 .hp-account-num { font-family: var(--font-display); font-weight: 600; font-size: clamp(48px, min(6.4vw, 12vh), 92px); line-height: 0.95; letter-spacing: -0.02em; white-space: nowrap; }
 .hp-account-unit { font-size: 14px; color: var(--text-secondary); margin-top: 10px; }
+.hp-res { display: grid; grid-template-columns: 1fr 1.2fr; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.hp-res > div { padding: clamp(18px, 3.4vh, 36px) 0; }
+.hp-res-growth { padding-left: clamp(24px, 4vw, 64px) !important; border-left: 1px solid var(--border); }
+.hp-res-main .hp-account-num { font-size: clamp(64px, min(9vw, 16vh), 136px); }
+.hp-res-unit { font-family: var(--font-display); font-weight: 600; font-size: clamp(16px, 2.8vh, 20px); margin-top: 12px; }
+.hp-res-row { display: flex; align-items: flex-end; gap: clamp(16px, 2.5vw, 36px); margin-top: 8px; }
+.hp-res-num { font-family: var(--font-display); font-weight: 600; font-size: clamp(36px, min(4.6vw, 8.5vh), 64px); line-height: 1; white-space: nowrap; }
+.hp-res-arrow { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 36px); color: var(--text-secondary); padding-bottom: 30px; }
+@media (max-width: 900px) {
+  .hp-res { grid-template-columns: 1fr; }
+  .hp-res-growth { padding-left: 0 !important; border-left: 0; border-top: 1px solid var(--border); }
+}
+.hp-ba { display: grid; grid-template-columns: 1.3fr 1fr 1.3fr; align-items: stretch; column-gap: 0; border-bottom: 1px solid var(--border); }
+.hp-ba > div { display: flex; align-items: center; padding: clamp(10px, 2vh, 18px) clamp(16px, 3vw, 48px) clamp(10px, 2vh, 18px) 0; border-top: 1px solid var(--border); }
+.hp-ba-head { font-family: var(--font-display); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-secondary); }
+.hp-ba-label { font-size: clamp(15px, 2.6vh, 18px); color: var(--text); }
+.hp-ba-before { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 4.4vh, 36px); line-height: 1; color: var(--text-secondary); white-space: nowrap; }
+.hp-ba-after { font-family: var(--font-display); font-weight: 600; font-size: clamp(36px, 7.4vh, 60px); line-height: 1; letter-spacing: -0.01em; white-space: nowrap; }
+@media (max-width: 640px) { .hp-ba { grid-template-columns: 1.4fr 0.8fr 1.3fr; } .hp-ba > div { padding-right: 12px; } .hp-ba-label { font-size: 13px; } .hp-ba-after { font-size: 28px; } .hp-ba-before { font-size: 20px; } }
 .hp-account-arrow { font-family: var(--font-display); font-size: clamp(28px, 3vw, 44px); color: var(--border); padding-bottom: 32px; }
 
 /* 09 case (on teal) */
@@ -1727,6 +1746,10 @@ details[open] .faq-icon { transform: rotate(45deg); }
 .hp-vs-list li::before { content: '—'; position: absolute; left: 0; color: var(--green); font-family: var(--font-display); font-weight: 600; }
 .hp-vs-list--no li { color: var(--text-secondary); }
 .hp-vs-list--no li::before { content: '×'; color: var(--text-secondary); }
+.hp-vs-list--roles li { display: flex; justify-content: space-between; gap: 16px; padding-left: 0; color: var(--text-secondary); font-size: clamp(14px, 2.4vh, 15px); padding-top: clamp(4px, 0.9vh, 8px); padding-bottom: clamp(4px, 0.9vh, 8px); }
+.hp-vs-list--roles li::before { content: none; }
+.hp-vs-list--roles b { font-family: var(--font-display); font-weight: 600; color: var(--text); white-space: nowrap; }
+.hp-vs-note { font-size: 13px; line-height: 1.5; color: var(--text-secondary); margin-top: clamp(8px, 1.6vh, 14px); padding-top: clamp(8px, 1.6vh, 14px); border-top: 1px solid var(--border); }
 .hp-vs-divider { font-family: var(--font-display); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-secondary); }
 
 /* 12 faq */
