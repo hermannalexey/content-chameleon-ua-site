@@ -897,6 +897,8 @@ details[open] .faq-icon { transform: rotate(45deg); }
   white-space: nowrap;
 }
 .compare-table th.hl { color: var(--green); }
+.compare-table th, .compare-table td { padding-left: 16px; padding-right: 16px; }
+.compare-table th { white-space: normal; vertical-align: bottom; }
 .compare-table td {
   padding: 16px 20px;
   font-size: 14px;
