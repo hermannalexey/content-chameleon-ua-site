@@ -1732,7 +1732,7 @@ details[open] .faq-icon { transform: rotate(45deg); }
 .hp-story { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(28px, 4vw, 56px); margin-top: clamp(12px, 2.4vh, 24px); align-items: start; }
 .hp-story p { font-size: clamp(15px, 2.6vh, 17px); color: var(--text-secondary); margin: 0; }
 .hp-story .hp-story-quote { font-family: var(--font-display); font-weight: 600; font-size: clamp(16px, 2.9vh, 19px); line-height: 1.4; color: var(--text); padding-left: 18px; border-left: 3px solid var(--green); }
-.hp-team { justify-content: space-between; flex-wrap: nowrap; gap: 16px; margin-top: var(--hp-gap); }
+.hp-team { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); justify-items: center; align-items: start; gap: clamp(20px, 3.6vh, 32px) 16px; margin-top: var(--hp-gap); }
 .hp-team .core-team-role { max-width: 170px; }
 .hp-team .core-team-photo { width: clamp(64px, 12vh, 96px); height: clamp(64px, 12vh, 96px); }
 
@@ -1769,7 +1769,11 @@ details[open] .faq-icon { transform: rotate(45deg); }
 .hp-agenda-item span { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; padding-top: 3px; }
 
 @media (max-width: 1024px) {
-  .hp-team { justify-content: center; flex-wrap: wrap; }
+  .hp-team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .hp-team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 900px) {
