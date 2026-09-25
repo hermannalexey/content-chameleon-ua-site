@@ -1568,6 +1568,7 @@ details[open] .faq-icon { transform: rotate(45deg); }
 .hp-hero-h1 { text-wrap: balance; }
 .hp-hero-h1 .accent { color: var(--green); }
 .hp-hero-h1 .nowrap { white-space: nowrap; }
+@media (min-width: 901px) { .hp-hero-h1 .nowrap-wide { white-space: nowrap; } }
 .hp-hero-sub {
   font-family: var(--font-display);
   font-weight: 600;
