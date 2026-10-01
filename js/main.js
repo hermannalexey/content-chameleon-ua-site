@@ -41,8 +41,16 @@ const FOOTER = (b) => `
         <div class="footer-col-links">
           <a href="${b}contact.html">Забронювати зустріч з Алексом →</a>
           <a href="mailto:alex@content-chameleon.com">alex@content-chameleon.com</a>
-          <a href="#" target="_blank" rel="noopener">LinkedIn (Алекс)</a>
-          <a href="#" target="_blank" rel="noopener">LinkedIn (сторінка компанії)</a>
+          <a href="https://www.linkedin.com/in/hermannalex/" target="_blank" rel="noopener">LinkedIn (Алекс)</a>
+          <a href="https://www.linkedin.com/company/content-chameleon-sales-agency/" target="_blank" rel="noopener">LinkedIn (сторінка компанії)</a>
+        </div>
+        <div class="footer-col-heading footer-social-heading">Соцмережі</div>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@content_chameleon" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://t.me/dontpanicgendem" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://www.instagram.com/content_chameleon/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/content.chameleon.sales/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.tiktok.com/@content.chameleon" target="_blank" rel="noopener">TikTok</a>
         </div>
       </div>
     </div>
