@@ -7,6 +7,7 @@ const NAV = (b) => `
     <div class="nav-links" id="navLinks">
       <a href="${b}systems/index.html">Офери</a>
       <a href="${b}conferences/index.html">Конференції</a>
+      <a href="${b}courses/index.html">Навчання</a>
       <a href="${b}pricing.html">Ціни</a>
       <a href="${b}about.html">Про нас</a>
       <a href="${b}contact.html" class="nav-cta">Забронювати зустріч</a>
@@ -30,6 +31,7 @@ const FOOTER = (b) => `
         <div class="footer-col-links">
           <a href="${b}systems/index.html">Офери</a>
           <a href="${b}conferences/index.html">Конференції</a>
+          <a href="${b}courses/index.html">Навчання</a>
           <a href="${b}pricing.html">Ціни</a>
           <a href="${b}about.html">Про нас</a>
           <a href="${b}compare.html">Порівняння</a>
