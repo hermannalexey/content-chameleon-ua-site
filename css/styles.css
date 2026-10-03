@@ -2042,3 +2042,27 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
 .cr-catalogue .system-card { display: flex; flex-direction: column; }
 .cr-catalogue .system-link { margin-top: 4px; }
 @media (prefers-reduced-motion: reduce) { .cr-lay > span { transition: none; } }
+
+/* === COMPANY PAGE PACKAGE (standalone, systems/company-page.html) === */
+.cp-reasons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background-color: var(--border);
+  margin-top: 40px;
+  max-width: 960px;
+}
+.cp-reason { background-color: var(--bg); padding: 32px 28px; }
+.cp-reason-num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.cp-reason h3 { font-size: 19px; line-height: 1.25; margin-bottom: 10px; }
+.cp-reason p { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+.standalone-card { max-width: 760px; margin-top: 32px; border: 1px solid var(--border); }
+@media (max-width: 900px) { .cp-reasons { grid-template-columns: 1fr; } }
