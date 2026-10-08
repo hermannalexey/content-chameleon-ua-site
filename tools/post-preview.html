@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PREVIEW BUILD: remove this noindex (and the Disallow in robots.txt) when the real domain launches -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Попередній перегляд LinkedIn-поста — Content Chameleon</title>
+  <meta name="description" content="Подивіться, як ваш пост виглядатиме у стрічці LinkedIn на комп’ютері й телефоні: де з’явиться «…більше» і скільки хука видно до обрізання.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Попередній перегляд LinkedIn-поста">
+  <meta property="og:description" content="Як пост виглядатиме у стрічці LinkedIn: де з’явиться «…більше» і скільки хука видно до обрізання.">
+  <meta property="og:url" content="https://UA-DOMAIN-TBD/tools/post-preview.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Попередній перегляд LinkedIn-поста">
+  <meta name="twitter:description" content="Як пост виглядатиме у стрічці LinkedIn: де з’явиться «…більше» і скільки хука видно до обрізання.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<script>window.BASE_PATH = '../';</script>
+<div id="site-header"></div>
+
+<main>
+
+  <div class="page-hero tl-hero">
+    <div class="page-hero-inner">
+      <span class="eyebrow">— Інструменти · Попередній перегляд поста</span>
+      <h1>Як ваш пост виглядатиме у стрічці</h1>
+      <p class="lead">До «…більше» читач бачить кілька рядків. Перевірте, чи вміщається в них хук — на комп’ютері й на телефоні.</p>
+    </div>
+  </div>
+
+  <section class="section tl-section">
+    <div class="section-inner">
+      <div class="tl-tool">
+
+        <!-- EDITOR -->
+        <div class="tl-editor">
+          <div class="tl-row">
+            <label class="tl-field">
+              <span class="tl-label">Ім’я</span>
+              <input type="text" id="ppName" maxlength="70" autocomplete="off">
+            </label>
+            <label class="tl-field">
+              <span class="tl-label">Заголовок профілю</span>
+              <input type="text" id="ppHeadline" maxlength="220" autocomplete="off">
+            </label>
+          </div>
+
+          <label class="tl-field">
+            <span class="tl-label">Текст поста</span>
+            <textarea id="ppText" rows="14" spellcheck="true"></textarea>
+          </label>
+
+          <div class="tl-counter">
+            <span id="ppCount">0 / 3000</span>
+            <span class="tl-counter-bar"><i id="ppBar"></i></span>
+          </div>
+
+          <div class="tl-files">
+            <label class="tl-file">
+              <input type="file" id="ppAvatar" accept="image/*">
+              <span>+ Фото профілю</span>
+            </label>
+            <label class="tl-file">
+              <input type="file" id="ppImage" accept="image/*">
+              <span>+ Зображення до поста</span>
+            </label>
+            <button type="button" class="tl-file tl-file--clear" id="ppClearImage" hidden>× Прибрати зображення</button>
+          </div>
+
+          <div class="tl-actions">
+            <button type="button" class="btn btn-primary" id="ppCopy">Скопіювати текст</button>
+            <button type="button" class="btn btn-ghost" id="ppReset">Почати з нуля</button>
+          </div>
+          <p class="tl-note">Текст зберігається лише у вашому браузері. Ми нічого не бачимо й не надсилаємо.</p>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="tl-preview">
+          <div class="tl-switch" role="tablist" aria-label="Пристрій">
+            <button type="button" role="tab" data-device="desktop" aria-selected="true">Комп’ютер</button>
+            <button type="button" role="tab" data-device="mobile" aria-selected="false">Телефон</button>
+          </div>
+
+          <div class="tl-stage" id="ppStage">
+            <div class="li-frame" id="ppFrame" data-device="desktop">
+              <article class="li-post">
+                <header class="li-head">
+                  <span class="li-avatar" id="ppAvatarView"></span>
+                  <span class="li-meta">
+                    <b class="li-name" id="ppNameView"></b>
+                    <span class="li-headline" id="ppHeadlineView"></span>
+                    <span class="li-time">Щойно · <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm4.9 6h-2.1a11 11 0 0 0-.9-3.9A5.5 5.5 0 0 1 12.9 7ZM8 2.6c.6.8 1.2 2.4 1.3 4.4H6.7C6.8 5 7.4 3.4 8 2.6ZM6.1 3.1A11 11 0 0 0 5.2 7H3.1a5.5 5.5 0 0 1 3-3.9ZM3.1 8.5h2.1c.1 1.5.4 2.9.9 3.9a5.5 5.5 0 0 1-3-3.9Zm4.9 4.9c-.6-.8-1.2-2.4-1.3-4.4h2.6c-.1 2-.7 3.6-1.3 4.4Zm1.9-.5c.5-1 .8-2.4.9-3.9h2.1a5.5 5.5 0 0 1-3 3.9Z"/></svg></span>
+                  </span>
+                  <span class="li-follow">+ Стежити</span>
+                </header>
+                <div class="li-text" id="ppTextView"></div>
+                <img class="li-image" id="ppImageView" alt="" hidden>
+                <div class="li-social">
+                  <span class="li-reacts"><i class="li-r li-r--like"></i><i class="li-r li-r--love"></i><i class="li-r li-r--clap"></i> 128</span>
+                  <span>14 коментарів · 3 поширення</span>
+                </div>
+                <div class="li-bar">
+                  <span>Подобається</span><span>Коментувати</span><span>Поширити</span><span>Надіслати</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="tl-stats">
+            <div class="tl-stat">
+              <b id="ppDesktopCut">—</b>
+              <span>символів видно до «більше» на комп’ютері</span>
+            </div>
+            <div class="tl-stat">
+              <b id="ppMobileCut">—</b>
+              <span>символів видно до «більше» на телефоні</span>
+            </div>
+          </div>
+          <p class="tl-hint" id="ppHint"></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section editorial--surface tl-tips">
+    <div class="section-inner">
+      <span class="eyebrow">— Що перевірити перед публікацією</span>
+      <div class="cp-reasons">
+        <div class="cp-reason">
+          <div class="cp-reason-num">01</div>
+          <h3>Хук до «більше»</h3>
+          <p>На телефоні до обрізання вміщається менше, ніж на комп’ютері. Якщо інтрига стоїть у третьому рядку десктопної версії, мобільний читач її не побачить.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">02</div>
+          <h3>Перший рядок — окремо</h3>
+          <p>Короткий перший рядок і порожній рядок після нього працюють як заголовок. Але кожен порожній рядок теж забирає місце до «більше».</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">03</div>
+          <h3>Без посилань у тексті</h3>
+          <p>Посилання краще винести в перший коментар: так пост виглядає чистіше, а читач не йде зі стрічки, не дочитавши.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">04</div>
+          <h3>Три хештеги максимум</h3>
+          <p>Хештеги не приводять охоплення, яке приводили колись. Один-три в кінці поста — досить, щоб він не виглядав як спам.</p>
+        </div>
+      </div>
+      <p class="hp-foot hp-foot--small">Хочете, щоб пости за вашого CEO писала команда, яка робить це щодня? <a href="../contact.html" class="btn-link">Забронювати зустріч з Алексом →</a></p>
+    </div>
+  </section>
+
+</main>
+<div id="site-footer"></div>
+<script src="../js/main.js"></script>
+<script>
+  (function () {
+    var LIMIT = 3000;
+    var LINES = 3;                 // LinkedIn collapses the post to three lines
+    var WIDTHS = { desktop: 523, mobile: 351 }; // text column width in px
+    var MORE = 'більше';
+    var STORE = 'cc-post-preview';
+
+    var SAMPLE = {
+      name: 'Олена Коваль',
+      headline: 'CEO · B2B SaaS для логістики',
+      text: 'Ми втратили найбільшого клієнта через одне речення в листі.\n\n' +
+        'Не через ціну. Не через продукт. Через «Дякуємо за терпіння».\n\n' +
+        'Клієнт чекав відповіді чотири дні. Ми вважали, що вибачилися. Він прочитав це як «ми знали, що ви чекаєте, і нічого не робили».\n\n' +
+        'Що ми змінили після цього:\n' +
+        '→ відповідь протягом 4 годин, навіть якщо це «ще розбираємося»\n' +
+        '→ жодних «дякуємо за терпіння» — тільки що зробили і що буде далі\n' +
+        '→ CEO особисто читає кожну скаргу клієнта з топ-20\n\n' +
+        'А яке речення у ваших листах клієнти читають не так, як ви його писали?\n\n' +
+        '#customersuccess #b2b'
+    };
+
+    var $ = function (id) { return document.getElementById(id); };
+    var nameIn = $('ppName'), headIn = $('ppHeadline'), textIn = $('ppText');
+    var frame = $('ppFrame'), stage = $('ppStage'), textView = $('ppTextView');
+    var device = 'desktop';
+    var expanded = false;
+    var avatarUrl = null, imageUrl = null;
+
+    // ---- storage (per-viewer convenience only) ----
+    function load() {
+      try { return JSON.parse(localStorage.getItem(STORE)) || null; } catch (e) { return null; }
+    }
+    function save() {
+      try { localStorage.setItem(STORE, JSON.stringify({ name: nameIn.value, headline: headIn.value, text: textIn.value })); } catch (e) {}
+    }
+
+    // ---- formatting ----
+    function esc(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function format(s) {
+      return esc(s).replace(/(https?:\/\/[^\s<]+|www\.[^\s<]+|#[\p{L}\p{N}_]+)/gu, '<span class="li-link">$1</span>');
+    }
+
+    // ---- truncation: find the longest prefix that fits in LINES lines with "…більше" ----
+    var measurer = document.createElement('div');
+    measurer.className = 'li-text li-text--measure';
+    measurer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(measurer);
+
+    function lineHeight() {
+      return parseFloat(getComputedStyle(measurer).lineHeight) || 20;
+    }
+    function truncatedHtml(prefix) {
+      return format(prefix.replace(/\s+$/, '')) + ' <span class="li-more">…' + MORE + '</span>';
+    }
+    // Returns null if the whole text fits, else the number of characters shown before "…більше".
+    function cutPoint(text, width) {
+      measurer.style.width = width + 'px';
+      var maxH = lineHeight() * LINES + 1;
+      measurer.innerHTML = format(text);
+      if (measurer.scrollHeight <= maxH) return null;
+      var lo = 0, hi = text.length;
+      while (lo < hi) {
+        var mid = Math.ceil((lo + hi) / 2);
+        measurer.innerHTML = truncatedHtml(text.slice(0, mid));
+        if (measurer.scrollHeight <= maxH) lo = mid; else hi = mid - 1;
+      }
+      // Don't split a surrogate pair (emoji) in half
+      var c = text.charCodeAt(lo - 1);
+      if (c >= 0xD800 && c <= 0xDBFF) lo -= 1;
+      return lo;
+    }
+
+    // ---- render ----
+    function initials(name) {
+      var parts = name.trim().split(/\s+/).filter(Boolean);
+      return ((parts[0] || '?')[0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+    }
+
+    function render() {
+      var name = nameIn.value.trim() || 'Ваше ім’я';
+      var text = textIn.value;
+
+      $('ppNameView').textContent = name;
+      $('ppHeadlineView').textContent = headIn.value.trim() || 'Заголовок профілю';
+      var av = $('ppAvatarView');
+      if (avatarUrl) { av.style.backgroundImage = 'url(' + avatarUrl + ')'; av.textContent = ''; }
+      else { av.style.backgroundImage = ''; av.textContent = initials(name); }
+
+      // counter
+      var n = text.length;
+      var count = $('ppCount');
+      count.textContent = n.toLocaleString('uk-UA') + ' / ' + LIMIT.toLocaleString('uk-UA');
+      count.classList.toggle('is-over', n > LIMIT);
+      $('ppBar').style.width = Math.min(100, n / LIMIT * 100) + '%';
+      $('ppBar').classList.toggle('is-over', n > LIMIT);
+
+      // cut points for both devices
+      var cuts = { desktop: cutPoint(text, WIDTHS.desktop), mobile: cutPoint(text, WIDTHS.mobile) };
+      $('ppDesktopCut').textContent = cuts.desktop === null ? 'Усі' : cuts.desktop;
+      $('ppMobileCut').textContent = cuts.mobile === null ? 'Усі' : cuts.mobile;
+
+      var hint = $('ppHint');
+      if (!text.trim()) hint.textContent = 'Почніть писати — прев’ю оновлюється одразу.';
+      else if (cuts.mobile === null) hint.textContent = 'Пост короткий: його видно повністю, без «більше».';
+      else {
+        var firstBreak = text.indexOf('\n');
+        var firstLine = firstBreak === -1 ? text.length : firstBreak;
+        hint.textContent = firstLine > cuts.mobile
+          ? 'Перше речення не вміщається до «більше» на телефоні. Спробуйте скоротити його.'
+          : 'На телефоні до «більше» читач бачить: «' + text.slice(0, cuts.mobile).replace(/\s+/g, ' ').trim() + ' …»';
+      }
+
+      // preview text
+      var cut = cuts[device];
+      if (cut === null || expanded) {
+        textView.innerHTML = format(text);
+        textView.classList.remove('is-collapsed');
+      } else {
+        textView.innerHTML = truncatedHtml(text.slice(0, cut));
+        textView.classList.add('is-collapsed');
+      }
+
+      fit();
+    }
+
+    // Scale the fixed-width LinkedIn frame down when the column is narrower than it
+    function fit() {
+      frame.style.zoom = '';
+      var avail = stage.clientWidth;
+      var need = frame.offsetWidth;
+      if (need > avail) frame.style.zoom = (avail / need).toFixed(3);
+    }
+
+    // ---- events ----
+    var timer = null;
+    function onInput() {
+      expanded = false;
+      clearTimeout(timer);
+      timer = setTimeout(function () { render(); save(); }, 60);
+    }
+    [nameIn, headIn, textIn].forEach(function (el) { el.addEventListener('input', onInput); });
+
+    textView.addEventListener('click', function (e) {
+      if (e.target.closest('.li-more')) { expanded = true; render(); }
+    });
+
+    document.querySelectorAll('.tl-switch button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        device = btn.dataset.device;
+        expanded = false;
+        frame.dataset.device = device;
+        document.querySelectorAll('.tl-switch button').forEach(function (b) {
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        render();
+      });
+    });
+
+    $('ppAvatar').addEventListener('change', function (e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      if (avatarUrl) URL.revokeObjectURL(avatarUrl);
+      avatarUrl = URL.createObjectURL(f);
+      render();
+    });
+
+    $('ppImage').addEventListener('change', function (e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+      imageUrl = URL.createObjectURL(f);
+      $('ppImageView').src = imageUrl;
+      $('ppImageView').hidden = false;
+      $('ppClearImage').hidden = false;
+    });
+
+    $('ppClearImage').addEventListener('click', function () {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+      imageUrl = null;
+      $('ppImageView').removeAttribute('src');
+      $('ppImageView').hidden = true;
+      $('ppClearImage').hidden = true;
+      $('ppImage').value = '';
+    });
+
+    $('ppCopy').addEventListener('click', function () {
+      var btn = this;
+      function done() {
+        btn.textContent = 'Скопійовано ✓';
+        setTimeout(function () { btn.textContent = 'Скопіювати текст'; }, 1600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textIn.value).then(done, function () { textIn.select(); });
+      } else {
+        textIn.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+      }
+    });
+
+    $('ppReset').addEventListener('click', function () {
+      textIn.value = '';
+      expanded = false;
+      render(); save();
+      textIn.focus();
+    });
+
+    window.addEventListener('resize', fit);
+
+    // ---- init ----
+    var saved = load();
+    var start = saved || SAMPLE;
+    nameIn.value = start.name || '';
+    headIn.value = start.headline || '';
+    textIn.value = start.text || '';
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
+    render();
+  })();
+</script>
+</body>
+</html>
