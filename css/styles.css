@@ -2181,3 +2181,7 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
   .tl-stage { padding: 10px; }
   .tl-stat b { font-size: 24px; }
 }
+
+/* Recommended tier label next to a price in .pricing-table */
+.pricing-reco { margin-left: 10px; font-family: var(--font-display); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); vertical-align: middle; }
+@media (max-width: 640px) { .pricing-reco { display: block; margin: 4px 0 0; } }
