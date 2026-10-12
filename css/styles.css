@@ -2201,7 +2201,7 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
 .mx-gallery figcaption { margin-top: 10px; font-family: var(--font-display); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-secondary); }
 .mx-cards { grid-template-columns: repeat(2, 1fr); }
 .cr-price-num.mx-free { font-size: clamp(40px, 6vw, 80px); }
-.mx-form { background-color: #F1EFE8; border-radius: 6px; padding: clamp(16px, 2.4vw, 28px); min-height: 220px; color: #0E0F11; }
+.mx-get { grid-template-columns: 1fr; }
 @media (max-width: 900px) {
   .cr-free { flex-direction: column !important; align-items: stretch; }
   .cr-free-shot { flex-basis: auto; margin-bottom: 24px; }
