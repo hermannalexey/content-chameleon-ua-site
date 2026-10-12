@@ -87,6 +87,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://UA-DOMAIN-TBD/courses/matrix.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://UA-DOMAIN-TBD/tools/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

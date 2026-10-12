@@ -2185,3 +2185,26 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
 /* Recommended tier label next to a price in .pricing-table */
 .pricing-reco { margin-left: 10px; font-family: var(--font-display); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); vertical-align: middle; }
 @media (max-width: 640px) { .pricing-reco { display: block; margin: 4px 0 0; } }
+
+/* === COMPETENCY MATRIX (free, courses/matrix.html + card in courses/index.html) === */
+.course--green { --cr-accent: var(--green); --cr-bar: var(--green); }
+.cr-free { grid-column: 1 / -1; flex-direction: row !important; gap: clamp(24px, 3vw, 44px); align-items: center; }
+.cr-free-shot { flex: 0 0 46%; display: block; border-radius: 4px; overflow: hidden; }
+.cr-free-shot img { width: 100%; height: auto; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.cr-free:hover .cr-free-shot img { transform: scale(1.03); }
+.cr-free-body { flex: 1; display: flex; flex-direction: column; }
+.cr-free .system-price { color: var(--green); }
+.mx-shot { width: 100%; height: auto; border-radius: 6px; box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+.mx-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 24px); margin-top: var(--hp-gap); }
+.mx-gallery figure { margin: 0; }
+.mx-gallery img { width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); }
+.mx-gallery figcaption { margin-top: 10px; font-family: var(--font-display); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-secondary); }
+.mx-cards { grid-template-columns: repeat(2, 1fr); }
+.cr-price-num.mx-free { font-size: clamp(40px, 6vw, 80px); }
+.mx-form { background-color: #F1EFE8; border-radius: 6px; padding: clamp(16px, 2.4vw, 28px); min-height: 220px; color: #0E0F11; }
+@media (max-width: 900px) {
+  .cr-free { flex-direction: column !important; align-items: stretch; }
+  .cr-free-shot { flex-basis: auto; margin-bottom: 24px; }
+  .mx-gallery { grid-template-columns: 1fr; }
+  .mx-cards { grid-template-columns: 1fr; }
+}
