@@ -2201,7 +2201,20 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
 .mx-gallery figcaption { margin-top: 10px; font-family: var(--font-display); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-secondary); }
 .mx-cards { grid-template-columns: repeat(2, 1fr); }
 .cr-price-num.mx-free { font-size: clamp(40px, 6vw, 80px); }
-.mx-get { grid-template-columns: 1fr; }
+/* SendPulse embed (form 251344) restyled to the site palette. #get prefix outranks SendPulse's own inline <style>. */
+#get .sp-form { width: 100%; max-width: 480px; margin: 0; padding: clamp(22px, 3vw, 32px); background: #0E0F11; border: 0; border-radius: 6px; font-family: var(--font-body); color: var(--text); box-shadow: 0 18px 40px rgba(14,15,17,0.25); }
+#get .sp-form .sp-form-fields-wrapper { width: 100%; }
+#get .sp-form .sp-field { margin-bottom: 16px; }
+#get .sp-form .sp-field p { font-size: 15px; line-height: 1.6; color: var(--text-secondary); }
+#get .sp-form .sp-field label { display: block; margin-bottom: 8px; font-family: var(--font-display); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-secondary); }
+#get .sp-form .sp-field label strong { color: var(--green); margin-left: 2px; }
+#get .sp-form .sp-form-control { height: 48px; padding: 0 14px; background: #16181B; border: 1px solid var(--border); border-radius: 3px; color: var(--text); font-family: var(--font-body); font-size: 16px; transition: border-color 0.18s; }
+#get .sp-form .sp-form-control::placeholder { color: #5d6064; }
+#get .sp-form .sp-form-control:focus { outline: none; border-color: var(--green); }
+#get .sp-form .sp-button-container { margin-bottom: 0; }
+#get .sp-form .sp-button { width: 100%; padding: 15px 28px; background-color: var(--green); color: #0E0F11; border: 0; border-radius: 3px; font-family: var(--font-display); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: background-color 0.18s; }
+#get .sp-form .sp-button:hover { background-color: #5caf6d; }
+#get .sp-form .sp-message { color: var(--text); font-size: 15px; }
 @media (max-width: 900px) {
   .cr-free { flex-direction: column !important; align-items: stretch; }
   .cr-free-shot { flex-basis: auto; margin-bottom: 24px; }
