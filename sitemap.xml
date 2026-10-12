@@ -47,6 +47,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://UA-DOMAIN-TBD/vacancies.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://UA-DOMAIN-TBD/courses/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

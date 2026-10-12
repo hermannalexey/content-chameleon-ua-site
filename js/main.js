@@ -38,6 +38,7 @@ const FOOTER = (b) => `
           <a href="${b}about.html">Про нас</a>
           <a href="${b}compare.html">Порівняння</a>
           <a href="${b}faq.html">Питання й відповіді</a>
+          <a href="${b}vacancies.html">Вакансії</a>
         </div>
       </div>
       <div>
