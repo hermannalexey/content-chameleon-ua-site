@@ -43,7 +43,7 @@ const FOOTER = (b) => `
       <div>
         <div class="footer-col-heading">Контакти</div>
         <div class="footer-col-links">
-          <a href="${b}contact.html">Забронювати зустріч з Алексом →</a>
+          <a href="${b}contact.html">Забронювати зустріч з нашим CEO →</a>
           <a href="mailto:alex@content-chameleon.com">alex@content-chameleon.com</a>
           <a href="https://www.linkedin.com/in/hermannalex/" target="_blank" rel="noopener">LinkedIn (Алекс)</a>
           <a href="https://www.linkedin.com/company/content-chameleon-sales-agency/" target="_blank" rel="noopener">LinkedIn (сторінка компанії)</a>
