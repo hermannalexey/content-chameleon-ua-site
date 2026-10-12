@@ -3,7 +3,7 @@
 const NAV = (b) => `
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="${b}index.html" class="nav-logo"><span class="at">@</span>content chameleon</a>
+    <a href="${b}index.html" class="nav-logo"><img src="${b}images/logo.png" alt="Content Chameleon" width="140" height="38"></a>
     <div class="nav-links" id="navLinks">
       <a href="${b}systems/index.html">Офери</a>
       <a href="${b}conferences/index.html">Конференції</a>
@@ -24,7 +24,7 @@ const FOOTER = (b) => `
   <div class="footer-inner">
     <div class="footer-grid">
       <div>
-        <div class="footer-logo"><span class="at">@</span>content chameleon</div>
+        <div class="footer-logo"><img src="${b}images/logo.png" alt="Content Chameleon" width="162" height="44" loading="lazy"></div>
         <p class="footer-tagline">LinkedIn-присутність і пайплайн з конференцій для B2B компаній, які виходять на західні ринки.</p>
       </div>
       <div>

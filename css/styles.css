@@ -224,6 +224,7 @@ em { font-style: italic; color: var(--text-secondary); }
   flex-shrink: 0;
 }
 .nav-logo .at { color: var(--green); }
+.nav-logo img { display: block; height: 38px; width: auto; }
 .nav-links {
   display: flex;
   align-items: center;
@@ -305,6 +306,7 @@ em { font-style: italic; color: var(--text-secondary); }
   margin-bottom: 10px;
 }
 .footer-logo .at { color: var(--green); }
+.footer-logo img { display: block; height: 44px; width: auto; margin-bottom: 16px; }
 .footer-tagline {
   font-size: 14px;
   color: var(--text-secondary);
