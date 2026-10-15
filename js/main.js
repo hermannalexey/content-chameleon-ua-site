@@ -10,6 +10,7 @@ const NAV = (b) => `
       <a href="${b}courses/index.html">Навчання</a>
       <a href="${b}tools/index.html">Інструменти</a>
       <a href="${b}pricing.html">Ціни</a>
+      <a href="${b}faq.html">Питання</a>
       <a href="${b}about.html">Про нас</a>
       <a href="${b}contact.html" class="nav-cta">Забронювати зустріч</a>
     </div>
