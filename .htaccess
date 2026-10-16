@@ -1,0 +1,34 @@
+# Production server config (HostiQ / LiteSpeed). GitHub Pages ignores this file.
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+
+# Force HTTPS and the www host
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.content-chameleon.com%{REQUEST_URI} [L,R=301]
+
+# Old WordPress URLs -> new pages
+RewriteRule ^(ua|en)/?$ / [L,R=301]
+RewriteRule ^(vacancii-ua|vacancii-en|copywriter-ua|lead-generation-specialist-ua|social-media-butterfly-ua)/?$ /vacancies.html [L,R=301]
+RewriteRule ^(wp-admin|wp-login\.php|wp-content|wp-includes|xmlrpc\.php|feed)(/.*)?$ / [L,R=301]
+
+# Caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/x-icon "access plus 30 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

@@ -2,4 +2,4 @@ User-agent: *
 # PREVIEW BUILD: change back to "Allow: /" at launch
 Disallow: /
 
-Sitemap: https://UA-DOMAIN-TBD/sitemap.xml
+Sitemap: https://www.content-chameleon.com/sitemap.xml

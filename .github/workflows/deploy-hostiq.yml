@@ -1,0 +1,67 @@
+# Deploys the site to the production host (HostiQ) over FTP on every push to main.
+#
+# The repo itself stays a "preview build" (noindex + robots Disallow) so the GitHub Pages
+# copy is never indexed; this workflow turns those off in the uploaded copy only.
+#
+# Setup (GitHub -> Settings -> Secrets and variables -> Actions):
+#   Secrets:   FTP_SERVER, FTP_USERNAME, FTP_PASSWORD
+#   Variables: FTP_SERVER_DIR (optional, default "public_html/"), FTP_PROTOCOL (optional, default "ftps")
+# Until the secrets exist the job skips the upload, so nothing reaches the server.
+
+name: Deploy to HostiQ
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-hostiq
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check FTP secrets
+        id: gate
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        run: |
+          if [ -z "$FTP_SERVER" ]; then
+            echo "::notice::FTP secrets not set yet - skipping deploy."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.ready == 'true'
+
+      - name: Build production copy
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          mkdir _deploy
+          rsync -a --exclude '.git*' --exclude '.github' --exclude '_deploy' --exclude '*.md' --exclude '.nojekyll' ./ _deploy/
+          cd _deploy
+          # Drop the preview-only noindex (404.html keeps its own noindex)
+          find . -name '*.html' ! -name '404.html' -print0 | xargs -0 sed -i \
+            -e '/<!-- PREVIEW BUILD: remove this noindex/d' \
+            -e '/<meta name="robots" content="noindex, nofollow">/d'
+          printf 'User-agent: *\nAllow: /\n\nSitemap: https://www.content-chameleon.com/sitemap.xml\n' > robots.txt
+          # 404.html is served for missing paths at any depth, so anchor its relative links at the root
+          sed -i 's#<head>#<head>\n  <base href="/">#' 404.html
+          if grep -rl 'noindex' --include='*.html' . | grep -v '^./404.html$'; then
+            echo "::error::noindex still present in the files above"; exit 1
+          fi
+
+      - name: Upload over FTP
+        if: steps.gate.outputs.ready == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./_deploy/
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
