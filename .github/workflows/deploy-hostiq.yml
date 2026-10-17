@@ -1,4 +1,7 @@
-# Deploys the site to the production host (HostiQ) over FTP on every push to main.
+# Deploys the site to the production host (HostiQ) over FTP — manually only.
+#
+# Workflow: push to main -> GitHub Pages test copy (https://hermannalexey.github.io/content-chameleon-ua-site/).
+# After the test copy is approved: GitHub -> Actions -> "Deploy to HostiQ" -> Run workflow (branch: main).
 #
 # The repo itself stays a "preview build" (noindex + robots Disallow) so the GitHub Pages
 # copy is never indexed; this workflow turns those off in the uploaded copy only.
@@ -11,8 +14,6 @@
 name: Deploy to HostiQ
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
