@@ -52,6 +52,11 @@ jobs:
           printf 'User-agent: *\nAllow: /\n\nSitemap: https://www.content-chameleon.com/sitemap.xml\n' > robots.txt
           # 404.html is served for missing paths at any depth, so anchor its relative links at the root
           sed -i 's#<head>#<head>\n  <base href="/">#' 404.html
+          # The server lets browsers cache CSS/JS for 7 days, so stamp each deploy's version
+          # onto their links; otherwise returning visitors see new HTML with old styles.
+          find . -name '*.html' -print0 | xargs -0 sed -i -E \
+            "s#(css/styles\.css|js/main\.js)(\?v=[^\"]*)?\"#\1?v=${GITHUB_SHA::7}\"#g"
+          grep -q "styles.css?v=${GITHUB_SHA::7}" index.html || { echo "::error::CSS version stamp missing"; exit 1; }
           if grep -rl 'noindex' --include='*.html' . | grep -v '^./404.html$'; then
             echo "::error::noindex still present in the files above"; exit 1
           fi
