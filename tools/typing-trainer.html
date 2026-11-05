@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PREVIEW BUILD: remove this noindex (and the Disallow in robots.txt) when the real domain launches -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Клавіатурний тренажер української розкладки — Content Chameleon</title>
+  <meta name="description" content="Безкоштовний тренажер сліпого друку українською: 25 уроків від основного ряду до прислів’їв, підказка пальців, статистика швидкості й точності, карта помилок.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Клавіатурний тренажер української розкладки">
+  <meta property="og:description" content="25 уроків сліпого друку українською, підказка пальців, статистика прогресу й карта помилок. Безкоштовно, без реєстрації.">
+  <meta property="og:url" content="https://www.content-chameleon.com/tools/typing-trainer.html">
+  <link rel="canonical" href="https://www.content-chameleon.com/tools/typing-trainer.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Клавіатурний тренажер української розкладки">
+  <meta name="twitter:description" content="25 уроків сліпого друку українською, підказка пальців, статистика прогресу й карта помилок.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../images/favicon-32.png">
+  <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+</head>
+<body>
+<script>window.BASE_PATH = '../';</script>
+<div id="site-header"></div>
+
+<main>
+
+  <div class="page-hero tl-hero">
+    <div class="page-hero-inner">
+      <span class="eyebrow">— Інструменти · Клавіатурний тренажер</span>
+      <h1>Друкуйте наосліп українською</h1>
+      <p class="lead">25 уроків від основного ряду до прислів’їв. Тренажер підказує, яким пальцем бити, рахує швидкість і точність і показує, на яких клавішах ви помиляєтесь. Безкоштовно, без реєстрації: прогрес зберігається лише у вашому браузері.</p>
+    </div>
+  </div>
+
+  <section class="section tl-section">
+    <div class="section-inner">
+      <div class="tt" id="tt">
+
+        <div class="tt-top">
+          <nav class="tabs" role="tablist" aria-label="Розділи тренажера">
+            <button type="button" role="tab" id="tabTrain" aria-selected="true">Тренування</button>
+            <button type="button" role="tab" id="tabStats" aria-selected="false">Статистика</button>
+          </nav>
+          <div class="overall" id="overall"></div>
+        </div>
+
+        <div class="grid" id="viewTrain">
+          <aside id="lessons" aria-label="Уроки"></aside>
+
+          <div class="tt-main">
+            <section class="desk" aria-live="polite">
+              <div class="desk-head">
+                <div>
+                  <h2 id="lessonTitle"></h2>
+                  <div class="keys" id="lessonKeys"></div>
+                </div>
+                <div class="actions">
+                  <button class="tt-btn" id="soundBtn" type="button" aria-pressed="true">🔊 Звук</button>
+                  <button class="tt-btn" id="restart" type="button" title="Esc">Почати знову</button>
+                  <button class="tt-btn" id="nextBtn" type="button">Наступний урок →</button>
+                </div>
+              </div>
+
+              <div id="warn" class="warn" hidden>Схоже, увімкнена англійська розкладка. Ми зараховуємо натискання за розташуванням клавіш, але краще перемкнутися на українську.</div>
+
+              <div class="stage" id="stage">
+                <div class="text" id="text"></div>
+                <input id="typer" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Поле для набору">
+                <div class="veil" id="veil" hidden>Клацніть тут і починайте друкувати</div>
+              </div>
+              <div class="result" id="result" hidden></div>
+
+              <div class="meta">
+                <div class="tt-stat"><span class="v" id="sSpeed">0</span><span class="l">зн/хв</span></div>
+                <div class="tt-stat"><span class="v" id="sAcc">100%</span><span class="l">точність</span></div>
+                <div class="tt-stat"><span class="v" id="sErr">0</span><span class="l">помилок</span></div>
+                <div class="tt-stat"><span class="v" id="sTime">0:00</span><span class="l">час</span></div>
+                <div class="hint" id="hint"></div>
+              </div>
+            </section>
+
+            <section class="desk">
+              <div class="kb-wrap"><div class="kb" id="kb"></div></div>
+              <div class="legend" id="legend"></div>
+              <p class="tips">Пальці лежать на основному ряду: ліва рука на <b>ф і в а</b>, права на <b>о л д ж</b>. Виступи на <b>а</b> та <b>о</b> допомагають знайти позицію наосліп. Помилку не можна пропустити: натисніть правильну клавішу, щоб іти далі. Esc починає урок знову.</p>
+            </section>
+          </div>
+        </div>
+
+        <section class="stats" id="viewStats" hidden></section>
+      </div>
+    </div>
+  </section>
+
+  <section class="section editorial--surface tl-tips">
+    <div class="section-inner">
+      <span class="eyebrow">— Як тренуватися, щоб був результат</span>
+      <div class="cp-reasons">
+        <div class="cp-reason">
+          <div class="cp-reason-num">01</div>
+          <h3>Очі на екрані</h3>
+          <p>Не дивіться на клавіатуру, навіть коли не знаєте, де літера. Підказка на екрані покаже клавішу й палець, а рука запам’ятає шлях.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">02</div>
+          <h3>Точність перед швидкістю</h3>
+          <p>Друкуйте повільно, але без помилок. Три зірки дають від 98% точності. Швидкість зростає сама, коли рухи стають автоматичними.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">03</div>
+          <h3>Щодня потроху</h3>
+          <p>10–15 хвилин щодня дають більше, ніж година раз на тиждень. Календар у статистиці покаже, чи тримаєте ви ритм.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">04</div>
+          <h3>Слабкі клавіші окремо</h3>
+          <p>Тренажер запам’ятовує, де ви помиляєтесь. Кнопка у статистиці складе урок саме з ваших проблемних літер.</p>
+        </div>
+      </div>
+      <p class="hp-foot hp-foot--small">Пишете для LinkedIn? Перевірте, як пост виглядатиме у стрічці: <a href="post-preview.html" class="btn-link">Попередній перегляд поста →</a></p>
+    </div>
+  </section>
+
+</main>
+<div id="site-footer"></div>
+<script src="../js/main.js"></script>
+<script>
+(() => {
+/* ---------- Keyboard (Ukrainian ЙЦУКЕН) ----------
+   [code, lower, shifted, width, finger]; finger: 0 L pinky … 3 L index, 4/5 thumbs, 6 R index … 9 R pinky, -1 none */
+const KB = [
+  [["Backquote","'","₴",1,0],["Digit1","1","!",1,0],["Digit2","2","\"",1,1],["Digit3","3","№",1,2],["Digit4","4",";",1,3],["Digit5","5","%",1,3],
+   ["Digit6","6",":",1,6],["Digit7","7","?",1,6],["Digit8","8","*",1,7],["Digit9","9","(",1,8],["Digit0","0",")",1,9],["Minus","-","_",1,9],["Equal","=","+",1,9],["Backspace","⌫","",2,-1]],
+  [["Tab","Tab","",1.5,-1],["KeyQ","й","",1,0],["KeyW","ц","",1,1],["KeyE","у","",1,2],["KeyR","к","",1,3],["KeyT","е","",1,3],["KeyY","н","",1,6],["KeyU","г","",1,6],
+   ["KeyI","ш","",1,7],["KeyO","щ","",1,8],["KeyP","з","",1,9],["BracketLeft","х","",1,9],["BracketRight","ї","",1,9],["Backslash","ґ","",1.5,9]],
+  [["CapsLock","Caps","",1.75,-1],["KeyA","ф","",1,0],["KeyS","і","",1,1],["KeyD","в","",1,2],["KeyF","а","",1,3],["KeyG","п","",1,3],["KeyH","р","",1,6],["KeyJ","о","",1,6],
+   ["KeyK","л","",1,7],["KeyL","д","",1,8],["Semicolon","ж","",1,9],["Quote","є","",1,9],["Enter","Enter","",2.25,-1]],
+  [["ShiftLeft","Shift","",2.25,0],["KeyZ","я","",1,0],["KeyX","ч","",1,1],["KeyC","с","",1,2],["KeyV","м","",1,3],["KeyB","и","",1,3],["KeyN","т","",1,6],["KeyM","ь","",1,6],
+   ["Comma","б","",1,7],["Period","ю","",1,8],["Slash",".",",",1,9],["ShiftRight","Shift","",2.75,9]],
+  [["_g1","","",4,-1],["Space","пробіл","",7,4],["_g2","","",4,-1]]
+];
+const HOME = new Set(["KeyF","KeyJ"]);
+const FINGER = ["лівий мізинець","лівий безіменний","лівий середній","лівий вказівний","великий палець","великий палець","правий вказівний","правий середній","правий безіменний","правий мізинець"];
+
+const CHAR = {}; // char -> {code, shift, finger}
+const KEYEL = {};
+KB.flat().forEach(([code, lo, hi, w, f]) => {
+  if (code.startsWith("_") || lo.length !== 1) return;
+  CHAR[lo] = {code, shift:false, finger:f};
+  const up = lo.toUpperCase();
+  if (up !== lo) CHAR[up] = {code, shift:true, finger:f};
+  if (hi) CHAR[hi] = {code, shift:true, finger:f};
+});
+CHAR[" "] = {code:"Space", shift:false, finger:4};
+
+/* Latin (QWERTY) -> Ukrainian by key position, for a forgotten layout switch */
+const LAT = {};
+const latLo = "`qwertyuiop[]\\asdfghjkl;'zxcvbnm,./", uaLo = "'йцукенгшщзхїґфівапролджєячсмитьбю.";
+const latHi = "~QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?", uaHi = "₴ЙЦУКЕНГШЩЗХЇҐФІВАПРОЛДЖЄЯЧСМИТЬБЮ,";
+[...latLo].forEach((c,i)=>LAT[c]=uaLo[i]); [...latHi].forEach((c,i)=>LAT[c]=uaHi[i]);
+Object.assign(LAT, {"@":"\"","#":"№","$":";","^":":","&":"?"});
+
+/* ---------- Lessons ---------- */
+const LESSONS = [
+  {g:"Основний ряд", t:"А та О", k:"ао"},
+  {g:"Основний ряд", t:"В та Л", k:"вл"},
+  {g:"Основний ряд", t:"І та Д", k:"ід"},
+  {g:"Основний ряд", t:"Ф та Ж", k:"фж"},
+  {g:"Основний ряд", t:"П та Р", k:"пр"},
+  {g:"Основний ряд", t:"Є", k:"є"},
+  {g:"Основний ряд", t:"Повторення", k:"", review:true},
+  {g:"Верхній ряд", t:"Е та Н", k:"ен"},
+  {g:"Верхній ряд", t:"К та Г", k:"кг"},
+  {g:"Верхній ряд", t:"У та Ш", k:"уш"},
+  {g:"Верхній ряд", t:"Ц та Щ", k:"цщ"},
+  {g:"Верхній ряд", t:"Й та З", k:"йз"},
+  {g:"Верхній ряд", t:"Х та Ї", k:"хї"},
+  {g:"Верхній ряд", t:"Повторення", k:"", review:true},
+  {g:"Нижній ряд", t:"И та Т", k:"ит"},
+  {g:"Нижній ряд", t:"М та Ь", k:"мь"},
+  {g:"Нижній ряд", t:"С та Б", k:"сб"},
+  {g:"Нижній ряд", t:"Ч та Ю", k:"чю"},
+  {g:"Нижній ряд", t:"Я та крапка", k:"я."},
+  {g:"Нижній ряд", t:"Повторення", k:"", review:true},
+  {g:"Знаки й текст", t:"Апостроф і Ґ", k:"'ґ"},
+  {g:"Знаки й текст", t:"Кома", k:",", mode:"comma"},
+  {g:"Знаки й текст", t:"Великі літери", k:"", mode:"caps"},
+  {g:"Знаки й текст", t:"Цифри", k:"1234567890", mode:"digits"},
+  {g:"Знаки й текст", t:"Прислів'я", k:"", mode:"sentences"},
+];
+
+const WORDS = `вода лава пара рада віра ліва лада лапа папа пора поділ повід вада дар дід діло відро ода про по від дорога
+мама тато дім хата місто село вікно двері стіл стілець книга зошит ручка олівець школа клас урок слово речення мова пісня казка
+ліс поле гора річка море озеро небо сонце місяць зоря хмара дощ сніг вітер зима весна літо осінь ранок день вечір ніч година
+хвилина тиждень рік друг подруга брат сестра син донька бабуся дідусь дитина людина робота праця сила воля доля мрія радість
+щастя любов серце рука нога голова око вухо ніс рот зуб хліб молоко сир масло борщ каша яблуко груша слива вишня суниця малина
+горіх цукор сіль чай кава кіт пес кінь корова коза вівця качка гуска курка півень риба птах лелека соловей вовк лисиця заєць
+ведмідь їжак білка дерево дуб липа клен береза верба калина квітка трава листя зерно колос сад город двір вулиця міст парк площа
+ринок театр кіно музей хор гра лижі ковзани поїзд автобус літак човен корабель машина телефон лист газета журнал фото картина
+музика танець свято подарунок новий старий добрий гарний великий малий високий низький довгий короткий теплий холодний швидкий
+веселий сумний легкий важкий білий чорний синій жовтий зелений червоний читати писати друкувати бачити чути знати думати
+говорити співати грати бігати ходити плавати жити любити вчити працювати іти їхати сидіти стояти лежати спати їсти пити
+так ні та але або що де коли як чому хто тут там вже ще завжди ніколи сьогодні завтра вчора разом швидко тихо добре багато мало
+дуже він вона воно вони ми ви наш ваш свій кожен інший один два три чотири п'ять сім вісім десять сто
+на не до за під над при без через для між поле рано пізно пора нора ніж пень гора нога кора нова рік ліжко
+одяг шапка шарф пальто сукня сорочка штани взуття чобіт кошик ключ замок фарба пензель папір ножиці клей нитка голка
+гроші ціна товар покупка кошик мережа сайт текст лекція клавіша палець набір помилка швидкість точність
+м'ята м'яч сім'я об'єм з'їсти пір'я дев'ять бур'ян комп'ютер п'ятниця подвір'я ґанок ґудзик ґрунт ґава ґедзь ґречний ґрати`
+  .split(/\s+/).filter(Boolean);
+const CITIES = "Київ Львів Одеса Харків Дніпро Полтава Чернігів Ужгород Луцьк Тернопіль Суми Вінниця Житомир Рівне Черкаси Херсон Запоріжжя Ірпінь Біла Церква".split(" ");
+const NAMES = "Олена Тарас Ірина Богдан Марія Остап Леся Андрій Софія Данило Оксана Максим".split(" ");
+const PROVERBS = [
+  "Без труда нема плода.", "Хто рано встає, тому Бог дає.", "Вода камінь точить.", "Не кажи гоп, поки не перескочиш.",
+  "Як дбаєш, так і маєш.", "Друзі пізнаються в біді.", "Тиха вода греблі рве.", "Сім разів відміряй, один раз відріж.",
+  "Під лежачий камінь вода не тече.", "Діло майстра величає.", "Що посієш, те й пожнеш.", "Краще пізно, ніж ніколи.",
+  "Тихіше їдеш, далі будеш.", "Очі бояться, а руки роблять.", "Птицю пізнати по пір'ю, а людину по мові.",
+  "Не той друг, хто медом маже, а той, хто правду каже.", "Вік живи, вік учись.", "Добре слово краще за м'який пиріг.",
+  "Де згода в сімействі, там мир і тишина.", "Хто шукає, той знаходить.", "Умілі руки не знають скуки."
+];
+
+/* ---------- Text generation ---------- */
+const rnd = n => Math.floor(Math.random()*n);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const isLetter = ch => /[а-яіїєґ']/i.test(ch);
+
+function allowedUpTo(i){
+  const s = new Set();
+  for (let j=0;j<=i;j++) for (const ch of LESSONS[j].k) if (isLetter(ch)) s.add(ch);
+  return s;
+}
+function groupLetters(i){
+  const g = LESSONS[i].g, s = [];
+  LESSONS.forEach((l,j)=>{ if (l.g===g && j<=i) for (const ch of l.k) if (isLetter(ch)) s.push(ch); });
+  return s;
+}
+function wordsFor(allowed, focus){
+  return WORDS.filter(w => [...w].every(c => allowed.has(c)) && (!focus.length || [...w].some(c => focus.includes(c))));
+}
+function combo(pool, focus, len){
+  let s = "";
+  for (let i=0;i<len;i++) s += (Math.random()<.6 && focus.length) ? pick(focus) : pick(pool);
+  return s;
+}
+function fit(tokens, max=150){
+  let out = "";
+  for (const t of tokens){ if ((out+" "+t).trim().length > max) break; out = (out+" "+t).trim(); }
+  return out;
+}
+
+function generate(i){
+  const L = LESSONS[i];
+  const allowed = allowedUpTo(i);
+  const all = [...allowed].filter(c=>c!=="'");
+  if (L.mode==="sentences") return shuffle(PROVERBS).slice(0,3).join(" ");
+  if (L.mode==="caps"){
+    const ws = shuffle(WORDS.filter(w=>!w.includes("'"))).slice(0,8).map(w=>w[0].toUpperCase()+w.slice(1));
+    return fit(shuffle([...ws, ...shuffle(CITIES).slice(0,5), ...shuffle(NAMES).slice(0,5)]));
+  }
+  if (L.mode==="comma"){
+    const ws = shuffle(WORDS).slice(0,16), t = [];
+    for (let j=0;j<ws.length;j++) t.push(ws[j] + ((j%4===3) ? "." : ","));
+    return fit(t);
+  }
+  if (L.mode==="digits"){
+    const t = [];
+    const nums = ["1","2","3","4","5","6","7","8","9","0"];
+    t.push("1 2 3 4 5 6 7 8 9 0", "12 34 56 78 90");
+    const ws = shuffle(WORDS);
+    for (let j=0;j<10;j++){ t.push(String(1+rnd(2025))); t.push(ws[j]); }
+    return fit(t, 140);
+  }
+  const focus = L.review ? groupLetters(i) : [...L.k].filter(c=>c!==",");
+  const t = [];
+  if (!L.review){
+    const f = focus.filter(c=>isLetter(c) || c===".");
+    const drill = f.filter(c=>c!=="'" && c!==".");
+    for (let r=0;r<2;r++) drill.forEach(c=>t.push(c.repeat(3)));
+    if (drill.length>1){ t.push(drill.join("")+drill[0], drill.slice().reverse().join("")+drill[drill.length-1]); }
+    if (f.includes(".")) t.push("а. о. в. л.");
+  }
+  const drillFocus = focus.filter(c=>c!=="'" && c!==".");
+  const nCombos = L.review ? 4 : 5;
+  for (let j=0;j<nCombos;j++) t.push(combo(all, drillFocus, 3+rnd(3)));
+  let ws = shuffle(wordsFor(allowed, focus.filter(c=>c!==".")));
+  ws = ws.slice(0, 12);
+  if (focus.includes(".")) ws = ws.map((w,j)=> j%3===2 ? w+"." : w);
+  const mix = [...t.slice(0, L.review?0:99), ...shuffle([...t.slice(L.review?0:t.length), ...ws])];
+  // keep the drill opening in order, then interleave the rest
+  let out = fit(mix, 150);
+  if (out.length < 90) out = fit([...mix, ...Array.from({length:8},()=>combo(all, drillFocus, 3+rnd(3)))], 150);
+  return out;
+}
+
+/* ---------- Storage (per-viewer convenience) ---------- */
+const STORE = "desiat-paltsiv-v1";
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(STORE) || "{}") || {}; } catch(e){ progress = {}; }
+function save(){ try { localStorage.setItem(STORE, JSON.stringify(progress)); } catch(e){} }
+let current = 0;
+try { const c = +localStorage.getItem(STORE+"-cur"); if (c>=0 && c<LESSONS.length) current = c; } catch(e){}
+
+/* ---------- DOM ---------- */
+const $ = id => document.getElementById(id);
+const textEl=$("text"), typer=$("typer"), veil=$("veil"), stage=$("stage"), resultEl=$("result"), hintEl=$("hint"), warnEl=$("warn");
+
+function starsHtml(n, max=3){ let s=""; for(let i=0;i<max;i++) s += `<span class="${i<n?"on":""}">★</span>`; return s; }
+
+function renderLessons(){
+  const box = $("lessons"); box.innerHTML = "";
+  const groups = {};
+  LESSONS.forEach((l,i)=>{ (groups[l.g] ||= []).push(i); });
+  for (const g in groups){
+    const d = document.createElement("div"); d.className="group";
+    d.innerHTML = `<h3>${g}</h3>`;
+    const ol = document.createElement("ol");
+    groups[g].forEach(i=>{
+      const li = document.createElement("li");
+      const b = document.createElement("button");
+      b.className="lesson-btn"; b.type="button";
+      if (i===current) b.setAttribute("aria-current","true");
+      const p = progress[i];
+      b.innerHTML = `<span class="n">${i+1}</span><span>${LESSONS[i].t}</span><span class="stars">${p?starsHtml(p.stars):""}</span>`;
+      b.onclick = () => loadLesson(i, true);
+      li.appendChild(b); ol.appendChild(li);
+    });
+    d.appendChild(ol); box.appendChild(d);
+  }
+  const done = Object.values(progress).filter(p=>p.stars>0).length;
+  const stars = Object.values(progress).reduce((a,p)=>a+(p.stars||0),0);
+  const best = Object.values(progress).reduce((a,p)=>Math.max(a,p.cpm||0),0);
+  $("overall").innerHTML = `Пройдено <b>${done}</b> з ${LESSONS.length} · <b>${stars}</b> ★ · рекорд <b>${best}</b> зн/хв`;
+}
+
+function renderKeyboard(){
+  const kb = $("kb"); kb.innerHTML="";
+  KB.forEach(row=>{
+    const r = document.createElement("div"); r.className="row";
+    row.forEach(([code, lo, hi, w, f])=>{
+      const k = document.createElement("div");
+      k.style.setProperty("--w", w);
+      let cls = "k";
+      if (code.startsWith("_")) cls += " gap";
+      else if (lo.length>1) cls += " fn";
+      if (f>=0 && !code.startsWith("_")) cls += " f"+f;
+      if (HOME.has(code)) cls += " home";
+      k.className = cls;
+      k.innerHTML = (hi && lo.length===1 ? `<small>${hi}</small>` : "") + (lo.length===1 ? lo.toUpperCase() : lo);
+      KEYEL[code] = k; r.appendChild(k);
+    });
+    kb.appendChild(r);
+  });
+  const lg = $("legend");
+  const names = [["f0","мізинці"],["f1","безіменні"],["f2","середні"],["f3","вказівні ліва"],["f6","вказівні права"],["f7","середній правий"],["f8","безіменний правий"],["f9","мізинець правий"],["f4","великі"]];
+  const left = ["лівий мізинець","лівий безіменний","лівий середній","лівий вказівний"];
+  const right = ["правий вказівний","правий середній","правий безіменний","правий мізинець"];
+  lg.innerHTML = [...left.map((n,i)=>`<span><i style="background:var(--f${i})"></i>${n}</span>`),
+    `<span><i style="background:var(--f4)"></i>великі пальці</span>`,
+    ...right.map((n,i)=>`<span><i style="background:var(--f${i+6})"></i>${n}</span>`)].join("");
+}
+
+/* ---------- Session state ---------- */
+let S;
+function loadLesson(i, focus){
+  current = i;
+  if (i >= 0) try { localStorage.setItem(STORE+"-cur", String(i)); } catch(e){}
+  const text = i < 0 ? generateWeak() : generate(i);
+  S = {text, pos:0, errors:0, correct:0, start:0, done:false, missed:new Set(), bad:false, latin:false, keyAtt:{}, keyErr:{}, pairs:{}};
+  if (i < 0){
+    $("lessonTitle").textContent = "Тренування слабких клавіш";
+    $("lessonKeys").textContent = "Ваші найпроблемніші: " + weakKeys().map(c=>c.toUpperCase()).join(" ");
+  } else {
+    const L = LESSONS[i];
+    $("lessonTitle").textContent = `Урок ${i+1}. ${L.g === "Знаки й текст" ? L.t : L.g + ": " + L.t}`;
+    const newKeys = [...L.k].map(c=>c===" "?"пробіл":c.toUpperCase()).join(" ");
+    $("lessonKeys").textContent = L.review ? "Усі вивчені клавіші" : (L.mode==="caps" ? "Shift + літера" : L.mode==="sentences" ? "Повні речення з розділовими знаками" : "Нові клавіші: " + newKeys);
+  }
+  $("nextBtn").hidden = i < 0 || i >= LESSONS.length-1;
+  resultEl.hidden = true; stage.hidden = false; warnEl.hidden = true;
+  renderText(); renderLessons(); updateStats(); updateHint();
+  textEl.scrollTop = 0;
+  if (focus) typer.focus({preventScroll:true});
+  refreshVeil();
+}
+
+function renderText(){
+  const parts = S.text.split(/( )/);
+  let idx = 0, html = "";
+  for (const p of parts){
+    if (p===" "){ html += `<span class="c sp" data-i="${idx++}"> </span>`; continue; }
+    if (!p) continue;
+    html += `<span class="w">` + [...p].map(ch=>`<span class="c" data-i="${idx++}">${ch.replace("<","&lt;")}</span>`).join("") + `</span>`;
+  }
+  textEl.innerHTML = html;
+  S.spans = textEl.querySelectorAll(".c");
+  paint();
+}
+function paint(){
+  S.spans.forEach((s,i)=>{
+    s.classList.toggle("done", i<S.pos && !S.missed.has(i));
+    s.classList.toggle("miss", i<S.pos && S.missed.has(i));
+    s.classList.toggle("cur", i===S.pos && !S.done);
+    s.classList.toggle("bad", i===S.pos && S.bad);
+  });
+  const cur = S.spans[S.pos];
+  if (cur){
+    const lh = cur.offsetHeight || 40;
+    const top = cur.offsetTop - textEl.offsetTop;
+    const target = Math.max(0, top - lh*0.9);
+    if (Math.abs(textEl.scrollTop - target) > 4) textEl.scrollTop = target;
+  }
+}
+function updateHint(){
+  Object.values(KEYEL).forEach(k=>k.classList.remove("next"));
+  if (S.done){ hintEl.textContent = ""; return; }
+  const ch = S.text[S.pos], info = CHAR[ch];
+  if (!info){ hintEl.textContent = ""; return; }
+  KEYEL[info.code]?.classList.add("next");
+  let txt = ch===" " ? `<b>пробіл</b>: великий палець` : `<b>${ch}</b>: ${FINGER[info.finger]}`;
+  if (info.shift){
+    const left = info.finger <= 4;
+    const sh = left ? "ShiftRight" : "ShiftLeft";
+    KEYEL[sh]?.classList.add("next");
+    txt += left ? " + правий Shift" : " + лівий Shift";
+  }
+  hintEl.innerHTML = txt;
+}
+function elapsed(){ return S.start ? (Date.now()-S.start)/1000 : 0; }
+function speed(){ const t = elapsed(); return t>1 ? Math.round(S.correct / t * 60) : 0; }
+function accuracy(){ const tot = S.correct + S.errors; return tot ? Math.round(S.correct/tot*1000)/10 : 100; }
+function updateStats(){
+  $("sSpeed").textContent = speed();
+  const a = accuracy(); $("sAcc").textContent = (a%1===0? a : a.toFixed(1)) + "%";
+  $("sErr").textContent = S.errors;
+  const t = Math.floor(elapsed()); $("sTime").textContent = Math.floor(t/60)+":"+String(t%60).padStart(2,"0");
+}
+setInterval(()=>{ if (S && S.start && !S.done) updateStats(); }, 500);
+
+function flash(code, cls){
+  const k = KEYEL[code]; if (!k) return;
+  k.classList.add(cls); setTimeout(()=>k.classList.remove(cls), 140);
+}
+
+function typeChar(c){
+  if (S.done) return;
+  const exp = S.text[S.pos];
+  if (!S.start) S.start = Date.now();
+  if (["’","ʼ","`"].includes(c) && exp==="'") c = "'";
+  let ok = c===exp;
+  if (!ok && LAT[c]){
+    if (/[a-z]/i.test(c)) { S.latin = true; warnEl.hidden = false; }
+    if (LAT[c]===exp){ ok = true; S.latin = true; warnEl.hidden = false; }
+  }
+  if (ok){
+    S.keyAtt[exp] = (S.keyAtt[exp]||0) + 1;
+    S.correct++; S.pos++; S.bad = false;
+    if (S.pos >= S.text.length) return finish();
+    play(sndKey, exp===" ");
+  } else {
+    S.errors++; S.bad = true; S.missed.add(S.pos);
+    const got = /[a-z]/i.test(c) ? (LAT[c] || c) : c;
+    S.keyErr[exp] = (S.keyErr[exp]||0) + 1;
+    const pk = exp + "\t" + got; S.pairs[pk] = (S.pairs[pk]||0) + 1;
+    play(sndError);
+    const info = CHAR[LAT[c] || c]; if (info) flash(info.code, "wrong");
+  }
+  paint(); updateHint(); updateStats();
+}
+
+function finish(){
+  S.done = true; S.bad=false; paint(); updateHint(); updateStats();
+  const cpm = speed(), acc = accuracy();
+  const stars = acc>=98 ? 3 : acc>=95 ? 2 : acc>=90 ? 1 : 0;
+  if (current >= 0){
+    const prev = progress[current] || {stars:0, cpm:0, acc:0};
+    progress[current] = {stars:Math.max(prev.stars,stars), cpm:Math.max(prev.cpm,cpm), acc:Math.max(prev.acc,acc)};
+    save();
+  }
+  recordSession(cpm, acc);
+  renderLessons(); play(sndDone, stars);
+  const verdict = stars===3 ? "Чудово, бездоганно точно." : stars===2 ? "Добре. Ще трохи уважності, і буде три зірки." : stars===1 ? "Урок зараховано. Спробуйте повільніше, але точніше." : "Забагато помилок. Пройдіть урок ще раз, не поспішайте.";
+  const hasNext = current >= 0 && current < LESSONS.length-1;
+  resultEl.innerHTML = `
+    <div class="bigstars">${starsHtml(stars)}</div>
+    <p class="big">${cpm} зн/хв · ${acc}% точність</p>
+    <p>${verdict} Помилок: ${S.errors}. Точність важливіша за швидкість: швидкість прийде сама.</p>
+    <div class="actions">
+      ${stars>0 && hasNext ? `<button class="tt-btn primary" type="button" id="rNext">Наступний урок → <small>(Enter)</small></button>` : ""}
+      <button class="tt-btn ${stars>0 && hasNext ? "" : "primary"}" type="button" id="rAgain">Ще раз${stars>0 && hasNext ? "" : " <small>(Enter)</small>"}</button>
+    </div>`;
+  stage.hidden = true; resultEl.hidden = false;
+  $("rAgain").onclick = () => loadLesson(current, true);
+  if ($("rNext")) $("rNext").onclick = () => loadLesson(current+1, true);
+  S.enterAction = stars>0 && hasNext ? () => loadLesson(current+1, true) : () => loadLesson(current, true);
+  typer.focus({preventScroll:true});
+}
+
+/* ---------- History & stats (this browser only) ---------- */
+const HIST = STORE + "-hist", AGG = STORE + "-agg";
+function loadHist(){ try { const h = JSON.parse(localStorage.getItem(HIST) || "[]"); return Array.isArray(h) ? h : []; } catch(e){ return []; } }
+function loadAgg(){ try { const a = JSON.parse(localStorage.getItem(AGG) || "null"); if (a && a.keys && a.pairs) return a; } catch(e){} return {keys:{}, pairs:{}}; }
+function recordSession(cpm, acc){
+  const h = loadHist();
+  h.push({d:Date.now(), l:current, cpm, acc, err:S.errors, sec:Math.round(elapsed()), n:S.correct});
+  if (h.length > 3000) h.splice(0, h.length-3000);
+  const a = loadAgg();
+  for (const [ch,n] of Object.entries(S.keyAtt)) (a.keys[ch] ||= [0,0])[0] += n;
+  for (const [ch,n] of Object.entries(S.keyErr)) (a.keys[ch] ||= [0,0])[1] += n;
+  for (const [p,n] of Object.entries(S.pairs)) a.pairs[p] = (a.pairs[p]||0) + n;
+  try { localStorage.setItem(HIST, JSON.stringify(h)); localStorage.setItem(AGG, JSON.stringify(a)); } catch(e){}
+}
+function weakKeys(){
+  const a = loadAgg(), per = {};
+  for (const [ch,[ok,bad]] of Object.entries(a.keys)){
+    const lo = ch.toLowerCase(); if (!isLetter(lo) || lo==="'") continue;
+    (per[lo] ||= [0,0]); per[lo][0] += ok; per[lo][1] += bad;
+  }
+  return Object.entries(per).filter(([,[ok,bad]]) => bad>0 && ok+bad >= 8)
+    .sort((x,y) => y[1][1]/(y[1][0]+y[1][1]) - x[1][1]/(x[1][0]+x[1][1])).slice(0,6).map(([c])=>c);
+}
+function generateWeak(){
+  const focus = weakKeys();
+  const all = [...allowedUpTo(LESSONS.length-1)].filter(c=>c!=="'");
+  if (!focus.length) return generate(LESSONS.length-2);
+  const t = [];
+  focus.forEach(c => t.push(c.repeat(3)));
+  for (let j=0;j<5;j++) t.push(combo(all, focus, 3+rnd(3)));
+  const ws = shuffle(wordsFor(new Set([...all, "'"]), focus)).slice(0,16);
+  return fit([...t, ...ws], 170);
+}
+
+const nf = n => Number(n).toLocaleString("uk-UA");
+function fmtDur(sec){
+  if (sec < 60) return Math.round(sec) + " с";
+  const m = Math.round(sec/60); if (m < 60) return m + " хв";
+  return Math.floor(m/60) + " год " + (m%60) + " хв";
+}
+const dayKey = t => { const d = new Date(t); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); };
+const lessonName = l => l < 0 ? "Слабкі клавіші" : `${l+1}. ${LESSONS[l]?.g === "Знаки й текст" ? LESSONS[l].t : (LESSONS[l]?.g || "") + ": " + (LESSONS[l]?.t || "")}`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const showCh = c => c === " " ? "пробіл" : esc(c);
+
+function lineChart(vals, {lo, hi, step, color, unit, firstIdx}){
+  const W=600, H=210, L=40, R=40, T=14, B=28, iw=W-L-R, ih=H-T-B;
+  const x = i => vals.length < 2 ? L + iw/2 : L + i*iw/(vals.length-1);
+  const y = v => T + ih - (Math.min(hi, Math.max(lo, v)) - lo) / (hi - lo) * ih;
+  let g = "";
+  for (let v=lo; v<=hi+1e-9; v+=step) g += `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--tt-line)" stroke-width="1"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`;
+  const pts = vals.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+  const area = vals.length>1 ? `<path d="M${x(0)},${T+ih} L${pts.join(" L")} L${x(vals.length-1)},${T+ih} Z" fill="${color}" opacity=".10"/>` : "";
+  const avg = vals.map((_,i)=>{ const s = vals.slice(Math.max(0,i-4), i+1); return s.reduce((a,b)=>a+b,0)/s.length; });
+  const trend = vals.length>3 ? `<polyline points="${avg.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ")}" fill="none" stroke="var(--tt-ink)" stroke-opacity=".45" stroke-width="1.5" stroke-dasharray="4 4"/>` : "";
+  const line = vals.length>1 ? `<polyline points="${pts.join(" ")}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>` : "";
+  const dots = vals.length <= 40 ? vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="2.5" fill="${color}"/>`).join("") : "";
+  const li = vals.length-1, lv = vals[li];
+  const end = `<circle cx="${x(li)}" cy="${y(lv)}" r="4.5" fill="${color}" stroke="var(--surface)" stroke-width="2"/><text class="end" x="${Math.min(x(li)+8, W-4)}" y="${y(lv)+4}" text-anchor="${x(li)+8 > W-R ? "end" : "start"}">${Math.round(lv)}${unit}</text>`;
+  const xl = `<text x="${x(0)}" y="${H-8}" text-anchor="${vals.length<2?"middle":"start"}">№${firstIdx+1}</text>` + (vals.length>1 ? `<text x="${x(li)}" y="${H-8}" text-anchor="end">№${firstIdx+vals.length}</text>` : "");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img">${g}${area}${trend}${line}${dots}${end}${xl}</svg>`;
+}
+
+function heatKeyboard(agg){
+  const per = {};
+  for (const [ch,[ok,bad]] of Object.entries(agg.keys)){
+    const info = CHAR[ch]; if (!info) continue;
+    (per[info.code] ||= [0,0]); per[info.code][0] += ok; per[info.code][1] += bad;
+  }
+  return `<div class="kb heat">` + KB.map(row => `<div class="row">` + row.map(([code, lo, hi, w]) => {
+    if (code.startsWith("_")) return `<div class="k gap" style="--w:${w}"></div>`;
+    const p = per[code], tot = p ? p[0]+p[1] : 0, rate = tot ? p[1]/tot : 0;
+    let bg = "var(--fx)", tip = "ще немає даних", pct = "";
+    if (tot >= 5){
+      const mix = Math.round(Math.min(1, rate/0.15) * 85);
+      bg = mix ? `color-mix(in srgb, var(--tt-err) ${mix}%, var(--fx))` : "var(--fx)";
+      pct = rate ? `<small>${(rate*100).toFixed(rate<0.1?1:0)}%</small>` : "";
+      tip = `${nf(tot)} натискань, помилок ${(rate*100).toFixed(1)}%`;
+    }
+    const label = lo.length===1 ? lo.toUpperCase() : lo;
+    return `<div class="k${lo.length>1?" fn":""}" style="--w:${w};background:${bg}" title="${esc(label)}: ${tip}">${esc(label)}${pct}</div>`;
+  }).join("") + `</div>`).join("") + `</div>`;
+}
+
+function calendar(h){
+  const mins = {};
+  h.forEach(r => { const k = dayKey(r.d); mins[k] = (mins[k]||0) + r.sec/60; });
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dow = (today.getDay()+6)%7;
+  const start = new Date(today); start.setDate(today.getDate() - dow - 7*17);
+  let cells = "";
+  for (let d = new Date(start), i=0; i < 18*7; i++, d.setDate(d.getDate()+1)){
+    if (d > today){ cells += `<i class="out"></i>`; continue; }
+    const k = dayKey(d), m = mins[k] || 0;
+    const lv = m === 0 ? 0 : m < 5 ? 1 : m < 15 ? 2 : m < 30 ? 3 : 4;
+    const label = d.toLocaleDateString("uk-UA", {day:"numeric", month:"long"}) + ": " + (m ? fmtDur(m*60) : "без тренувань");
+    cells += `<i class="l${lv}${d.getTime()===today.getTime()?" today":""}" title="${label}"></i>`;
+  }
+  let streak = 0; const d = new Date(today);
+  if (!mins[dayKey(d)]) d.setDate(d.getDate()-1);
+  while (mins[dayKey(d)]){ streak++; d.setDate(d.getDate()-1); }
+  const days = Object.keys(mins).length;
+  return {html:`<div class="cal-wrap"><div class="cal-days"><span>Пн</span><span></span><span>Ср</span><span></span><span>Пт</span><span></span><span>Нд</span></div><div class="cal">${cells}</div></div>`, streak, days};
+}
+
+function plural(n, one, few, many){ const m10=n%10, m100=n%100; return m10===1&&m100!==11 ? one : m10>=2&&m10<=4&&(m100<12||m100>14) ? few : many; }
+
+function renderStats(){
+  const el = $("viewStats"), h = loadHist(), a = loadAgg();
+  if (!h.length){
+    el.innerHTML = `<div class="desk tight"><h2>Тут поки порожньо</h2>
+      <p class="sub">Пройдіть будь-який урок до кінця, і тут з'являться ваші підсумки, графіки швидкості й точності, карта помилок на клавіатурі та календар занять. Усе зберігається тільки в цьому браузері.</p>
+      <div class="row-actions"><button class="tt-btn primary" type="button" id="goTrain">До уроків</button></div></div>`;
+    $("goTrain").onclick = () => showView("train");
+    return;
+  }
+  const sec = h.reduce((s,r)=>s+r.sec,0), chars = h.reduce((s,r)=>s+r.n,0), errs = h.reduce((s,r)=>s+r.err,0);
+  const best = Math.max(...h.map(r=>r.cpm));
+  const last10 = h.slice(-10), prev10 = h.slice(-20,-10);
+  const avg = arr => Math.round(arr.reduce((s,r)=>s+r.cpm,0)/arr.length);
+  const avgNow = avg(last10);
+  const acc = chars+errs ? (chars/(chars+errs)*100) : 100;
+  const cal = calendar(h);
+  let delta = "";
+  if (prev10.length >= 3){
+    const dlt = avgNow - avg(prev10);
+    delta = `<span class="d ${dlt>0?"up":dlt<0?"down":""}">${dlt>0?"+":""}${dlt} до попередніх 10</span>`;
+  }
+
+  const N = 60, recent = h.slice(-N), first = h.length - recent.length;
+  const cpmVals = recent.map(r=>r.cpm), accVals = recent.map(r=>r.acc);
+  const cpmHi = Math.max(50, Math.ceil(Math.max(...cpmVals)/50)*50);
+  const accLo = Math.min(80, Math.floor(Math.min(...accVals)/5)*5);
+
+  const pairs = Object.entries(a.pairs).sort((x,y)=>y[1]-x[1]).slice(0,8);
+  const weak = weakKeys();
+
+  const byL = {};
+  h.forEach(r => { const o = (byL[r.l] ||= {n:0, cpm:0, acc:0, last:0}); o.n++; o.cpm=Math.max(o.cpm,r.cpm); o.acc=Math.max(o.acc,r.acc); o.last=Math.max(o.last,r.d); });
+  const rows = Object.keys(byL).map(Number).sort((x,y)=>(x<0?999:x)-(y<0?999:y)).map(l => {
+    const o = byL[l];
+    return `<tr><td>${esc(lessonName(l))}</td><td class="num">${o.n}</td><td class="num">${o.cpm}</td><td class="num">${o.acc}%</td><td class="num">${new Date(o.last).toLocaleDateString("uk-UA",{day:"numeric",month:"short"})}</td></tr>`;
+  }).join("");
+
+  el.innerHTML = `
+    <div class="tiles">
+      <div class="tile"><span class="l">Час тренувань</span><span class="v">${fmtDur(sec)}</span><span class="d">${h.length} ${plural(h.length,"урок","уроки","уроків")} пройдено</span></div>
+      <div class="tile"><span class="l">Знаків набрано</span><span class="v">${nf(chars)}</span><span class="d">помилок ${nf(errs)}</span></div>
+      <div class="tile"><span class="l">Швидкість зараз</span><span class="v">${avgNow} <small class="l">зн/хв</small></span>${delta || `<span class="d">середня за останні ${last10.length}</span>`}</div>
+      <div class="tile"><span class="l">Рекорд</span><span class="v">${best} <small class="l">зн/хв</small></span><span class="d">≈ ${Math.round(best/6)} слів за хвилину</span></div>
+      <div class="tile"><span class="l">Точність загалом</span><span class="v">${acc.toFixed(1)}%</span><span class="d">з усіх натискань</span></div>
+      <div class="tile"><span class="l">Серія днів</span><span class="v">${cal.streak}</span><span class="d">усього ${cal.days} ${plural(cal.days,"день","дні","днів")} із тренуваннями</span></div>
+    </div>
+
+    <div class="two">
+      <section class="desk tight chart"><h2>Швидкість, зн/хв</h2><p class="sub">Останні ${recent.length} ${plural(recent.length,"урок","уроки","уроків")}. Пунктир показує середнє за 5 уроків.</p>
+        ${lineChart(cpmVals, {lo:0, hi:cpmHi, step:cpmHi/5, color:"var(--teal)", unit:"", firstIdx:first})}</section>
+      <section class="desk tight chart"><h2>Точність, %</h2><p class="sub">Три зірки від 98%. Тримайте точність, і швидкість прийде.</p>
+        ${lineChart(accVals, {lo:accLo, hi:100, step:(100-accLo)/4, color:"var(--tt-ok)", unit:"%", firstIdx:first})}</section>
+    </div>
+
+    <section class="desk tight">
+      <h2>Карта помилок</h2>
+      <p class="sub">Чим червоніша клавіша, тим частіше ви на ній помиляєтесь. Наведіть на клавішу, щоб побачити цифри. Клавіші, натиснуті менше 5 разів, не зафарбовані.</p>
+      <div class="kb-wrap">${heatKeyboard(a)}</div>
+      ${pairs.length ? `<h2 style="margin-top:6px">Що з чим плутаєте</h2><div class="pairs">${pairs.map(([p,n])=>{ const [e,g]=p.split("\t"); return `<span class="pair">${showCh(e)} → ${showCh(g)}<small>×${n}</small></span>`; }).join("")}</div>` : `<p class="sub">Помилок поки немає. Так тримати.</p>`}
+      <div class="row-actions">
+        <button class="tt-btn primary" type="button" id="weakBtn" ${weak.length ? "" : "disabled"}>Потренувати слабкі клавіші${weak.length ? ": " + weak.map(c=>c.toUpperCase()).join(" ") : ""}</button>
+        ${weak.length ? "" : `<span class="sub">З'явиться, коли набереться трохи помилок.</span>`}
+      </div>
+    </section>
+
+    <section class="desk tight">
+      <h2>Календар занять</h2>
+      <p class="sub">Останні 18 тижнів. Колір показує, скільки хвилин ви тренувались того дня.</p>
+      ${cal.html}
+    </section>
+
+    <section class="desk tight">
+      <h2>Уроки</h2>
+      <div class="table-wrap"><table class="lt"><thead><tr><th>Урок</th><th class="num">Спроб</th><th class="num">Найкраща швидкість</th><th class="num">Найкраща точність</th><th class="num">Останній раз</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </section>
+
+    <div class="row-actions">
+      <span class="sub">Статистика зберігається лише в цьому браузері. Очищення даних сайту її видалить.</span>
+      <span id="resetBox"><button class="tt-btn danger" type="button" id="resetBtn">Скинути статистику</button></span>
+    </div>`;
+
+  $("weakBtn").onclick = () => { if (!weakKeys().length) return; showView("train"); loadLesson(-1, true); };
+  $("resetBtn").onclick = () => {
+    $("resetBox").innerHTML = `<span class="sub">Видалити всю історію й зірки?</span> <button class="tt-btn danger" type="button" id="resetYes">Так, видалити</button> <button class="tt-btn" type="button" id="resetNo">Скасувати</button>`;
+    $("resetNo").onclick = renderStats;
+    $("resetYes").onclick = () => {
+      try { localStorage.removeItem(HIST); localStorage.removeItem(AGG); localStorage.removeItem(STORE); } catch(e){}
+      progress = {}; renderLessons(); renderStats();
+    };
+  };
+}
+
+/* ---------- Sound (synthesized, starts on first keypress) ---------- */
+let soundOn = true;
+try { soundOn = localStorage.getItem(STORE+"-sound") !== "off"; } catch(e){}
+let AC = null, noiseBuf = null;
+function ac(){
+  if (!AC){
+    const C = window.AudioContext || window.webkitAudioContext; if (!C) return null;
+    AC = new C();
+    noiseBuf = AC.createBuffer(1, AC.sampleRate*0.05, AC.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    for (let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/d.length, 3);
+  }
+  if (AC.state==="suspended") AC.resume().catch(()=>{});
+  return AC;
+}
+function sndKey(space){
+  const a = ac(); if (!a) return; const t = a.currentTime;
+  const n = a.createBufferSource(); n.buffer = noiseBuf; n.playbackRate.value = 0.9 + Math.random()*0.25;
+  const bp = a.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value = space ? 1400 : 2600 + Math.random()*500; bp.Q.value = 1.2;
+  const g = a.createGain(); g.gain.setValueAtTime(space ? 0.35 : 0.45, t); g.gain.exponentialRampToValueAtTime(0.001, t+0.05);
+  n.connect(bp).connect(g).connect(a.destination); n.start(t); n.stop(t+0.06);
+  const o = a.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(space?110:160, t); o.frequency.exponentialRampToValueAtTime(60, t+0.04);
+  const og = a.createGain(); og.gain.setValueAtTime(0.18, t); og.gain.exponentialRampToValueAtTime(0.001, t+0.05);
+  o.connect(og).connect(a.destination); o.start(t); o.stop(t+0.06);
+}
+function sndError(){
+  const a = ac(); if (!a) return; const t = a.currentTime;
+  const o = a.createOscillator(); o.type="square"; o.frequency.setValueAtTime(150, t); o.frequency.linearRampToValueAtTime(110, t+0.14);
+  const lp = a.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value = 900;
+  const g = a.createGain(); g.gain.setValueAtTime(0.12, t); g.gain.exponentialRampToValueAtTime(0.001, t+0.16);
+  o.connect(lp).connect(g).connect(a.destination); o.start(t); o.stop(t+0.17);
+}
+function sndDone(stars){
+  const a = ac(); if (!a) return; const t = a.currentTime;
+  const notes = stars>0 ? [523.25, 659.25, 783.99, stars===3 ? 1046.5 : null].filter(Boolean) : [392, 311.13];
+  notes.forEach((f,i)=>{
+    const o = a.createOscillator(); o.type="triangle"; o.frequency.value = f;
+    const g = a.createGain(); const s = t + i*0.11;
+    g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(0.18, s+0.02); g.gain.exponentialRampToValueAtTime(0.001, s+0.35);
+    o.connect(g).connect(a.destination); o.start(s); o.stop(s+0.4);
+  });
+}
+const play = (fn, ...a) => { if (soundOn) try { fn(...a); } catch(e){} };
+function paintSoundBtn(){
+  const b = $("soundBtn");
+  b.setAttribute("aria-pressed", String(soundOn));
+  b.textContent = soundOn ? "🔊 Звук" : "🔇 Без звуку";
+}
+$("soundBtn").onclick = () => {
+  soundOn = !soundOn; paintSoundBtn();
+  try { localStorage.setItem(STORE+"-sound", soundOn ? "on" : "off"); } catch(e){}
+  if (soundOn) play(sndKey, false);
+  typer.focus({preventScroll:true});
+};
+paintSoundBtn();
+
+/* ---------- Input ---------- */
+typer.addEventListener("input", e=>{
+  const v = typer.value; typer.value = "";
+  for (const c of v) typeChar(c);
+});
+typer.addEventListener("keydown", e=>{
+  flash(e.code, "down");
+  if (e.key==="Escape"){ e.preventDefault(); loadLesson(current, true); return; }
+  if (e.key==="Enter"){ e.preventDefault(); if (S.done && S.enterAction) S.enterAction(); return; }
+  if (e.key==="Tab") return;
+  if (e.key===" " ){ e.preventDefault(); typeChar(" "); return; }
+});
+document.addEventListener("keydown", e=>{
+  if (document.activeElement===typer) return;
+  if (e.target.closest && e.target.closest("input, textarea, select, [contenteditable]")) return;
+  if (e.target.closest && e.target.closest("button")) return;
+  if (e.key.length===1 && !e.metaKey && !e.ctrlKey && !$("viewTrain").hidden){ typer.focus({preventScroll:true}); }
+});
+stage.addEventListener("click", ()=>typer.focus({preventScroll:true}));
+veil.addEventListener("click", ()=>typer.focus({preventScroll:true}));
+function refreshVeil(){ veil.hidden = document.activeElement===typer || S.done; }
+typer.addEventListener("focus", refreshVeil);
+typer.addEventListener("blur", ()=>setTimeout(refreshVeil, 50));
+$("restart").onclick = () => loadLesson(current, true);
+$("nextBtn").onclick = () => loadLesson(Math.min(current+1, LESSONS.length-1), true);
+
+function showView(name){
+  const stats = name === "stats";
+  $("viewTrain").hidden = stats; $("viewStats").hidden = !stats;
+  $("tabTrain").setAttribute("aria-selected", String(!stats));
+  $("tabStats").setAttribute("aria-selected", String(stats));
+  if (stats){ typer.blur(); renderStats(); }
+  else typer.focus({preventScroll:true});
+  if ((location.hash === "#stats") !== stats) location.hash = stats ? "stats" : "train";
+}
+$("tabTrain").onclick = () => showView("train");
+$("tabStats").onclick = () => showView("stats");
+window.addEventListener("hashchange", () => showView(location.hash === "#stats" ? "stats" : "train"));
+
+renderKeyboard();
+loadLesson(current, false);
+if (location.hash === "#stats") showView("stats");
+})();
+</script>
+</body>
+</html>
