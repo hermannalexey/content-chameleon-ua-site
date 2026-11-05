@@ -2386,3 +2386,15 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
   .tt aside { order: 2; }
 }
 @media (prefers-reduced-motion: reduce) { .tt * { transition: none !important; scroll-behavior: auto !important; } }
+
+/* Typing trainer: «Копірайтинг» section (English passages with paragraph breaks) */
+.tt .c.nl { color: var(--tt-muted); opacity: 0.55; }
+.tt .c.nl.cur { opacity: 1; }
+.tt .copy .text { height: calc(1.75em * 4); }
+.tt .book { margin: 0 6px 8px; font-size: 14px; font-weight: 600; line-height: 1.35; color: var(--tt-ink); }
+.tt .book span { display: block; font-weight: 400; color: var(--tt-muted); font-size: 12px; margin-top: 2px; }
+.tt .group > .sub { margin: 0 6px 10px; }
+.tt .group > .tt-btn { margin: 0 6px; width: calc(100% - 12px); }
+.tt .lesson-btn .prog { font-size: 11px; color: var(--tt-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tt .lesson-btn .prog.full { color: var(--tt-ok); }
+.tt .lesson-btn[aria-current="true"] .prog { color: #0E0F11; }
