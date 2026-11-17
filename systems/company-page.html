@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+  <!-- Google Analytics 4: runs only on the production domain, not on the GitHub Pages test copy -->
+  <script>
+    if (/(^|\.)content-chameleon\.com$/.test(location.hostname)) {
+      var gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-2GRVBJKWJ1';
+      document.head.appendChild(gaScript);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-2GRVBJKWJ1');
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- PREVIEW BUILD: remove this noindex (and the Disallow in robots.txt) when the real domain launches -->
