@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <!-- Google Analytics 4: runs only on the production domain, not on the GitHub Pages test copy -->
+  <script>
+    if (/(^|\.)content-chameleon\.com$/.test(location.hostname)) {
+      var gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-2GRVBJKWJ1';
+      document.head.appendChild(gaScript);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-2GRVBJKWJ1');
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PREVIEW BUILD: remove this noindex (and the Disallow in robots.txt) when the real domain launches -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Картки копірайтингу — Content Chameleon</title>
+  <meta name="description" content="Безкоштовні флеш-картки з принципами копірайтингу: заголовки, формули AIDA і PAS, вигоди замість характеристик, правила Клода Гопкінса. Перевертайте, позначайте вивчене, повторюйте.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Картки копірайтингу">
+  <meta property="og:description" content="Флеш-картки з принципами копірайтингу: заголовки, формули, переконання, редагування й класика Гопкінса.">
+  <meta property="og:url" content="https://www.content-chameleon.com/tools/copy-cards.html">
+  <link rel="canonical" href="https://www.content-chameleon.com/tools/copy-cards.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Картки копірайтингу">
+  <meta name="twitter:description" content="Флеш-картки з принципами копірайтингу: заголовки, формули, переконання, редагування й класика Гопкінса.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../images/favicon-32.png">
+  <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+</head>
+<body>
+<body>
+<script>window.BASE_PATH = '../';</script>
+<div id="site-header"></div>
+
+<main>
+
+  <div class="page-hero tl-hero">
+    <div class="page-hero-inner">
+      <span class="eyebrow">— Інструменти · Картки копірайтингу</span>
+      <h1>Принципи копірайтингу на картках</h1>
+      <p class="lead">Заголовки, формули, переконання, редагування й правила Клода Гопкінса. Прочитайте питання, згадайте відповідь, переверніть картку й чесно позначте, чи знали.</p>
+    </div>
+  </div>
+
+  <section class="section tl-section">
+    <div class="section-inner">
+      <div class="fc" id="fc">
+
+        <div class="fc-top">
+          <div class="fc-cats" id="fcCats" role="group" aria-label="Теми карток"></div>
+          <label class="fc-toggle"><input type="checkbox" id="fcOnlyNew"> Лише невивчені</label>
+        </div>
+
+        <div class="fc-progress">
+          <span id="fcPos">1 / 1</span>
+          <span class="tl-counter-bar"><i id="fcBar"></i></span>
+          <span id="fcKnown">Вивчено 0</span>
+        </div>
+
+        <div class="fc-scene">
+          <button type="button" class="fc-card" id="fcCard" aria-label="Перевернути картку">
+            <span class="fc-face fc-front">
+              <span class="fc-tag" id="fcTagFront"></span>
+              <span class="fc-q" id="fcQ"></span>
+              <span class="fc-hint">Клацніть або натисніть пробіл, щоб перевернути</span>
+            </span>
+            <span class="fc-face fc-back" aria-hidden="true">
+              <span class="fc-tag" id="fcTagBack"></span>
+              <span class="fc-a" id="fcA"></span>
+              <span class="fc-ex" id="fcEx"></span>
+              <span class="fc-src" id="fcSrc"></span>
+            </span>
+          </button>
+          <div class="fc-empty" id="fcEmpty" hidden>
+            <p>У цій темі все вивчено. 🎉</p>
+            <button type="button" class="btn btn-ghost" id="fcResetTopic">Повторити тему з нуля</button>
+          </div>
+        </div>
+
+        <div class="fc-controls">
+          <button type="button" class="btn btn-ghost" id="fcPrev" aria-label="Попередня картка">←</button>
+          <button type="button" class="btn btn-ghost fc-again" id="fcAgain">Повторити</button>
+          <button type="button" class="btn btn-primary" id="fcKnow">Знаю</button>
+          <button type="button" class="btn btn-ghost" id="fcNext" aria-label="Наступна картка">→</button>
+        </div>
+
+        <div class="fc-sub">
+          <button type="button" class="fc-link" id="fcShuffle">Перемішати</button>
+          <button type="button" class="fc-link" id="fcReset">Скинути прогрес</button>
+          <span class="fc-keys">Клавіші: пробіл — перевернути, ← → — гортати, 1 — повторити, 2 — знаю</span>
+        </div>
+        <p class="tl-note">Прогрес зберігається лише у вашому браузері.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section editorial--surface tl-tips">
+    <div class="section-inner">
+      <span class="eyebrow">— Як працювати з картками</span>
+      <div class="cp-reasons">
+        <div class="cp-reason">
+          <div class="cp-reason-num">01</div>
+          <h3>Спершу відповідь у голові</h3>
+          <p>Не перевертайте одразу. Спробуйте сформулювати відповідь своїми словами: саме зусилля пригадати й закріплює знання.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">02</div>
+          <h3>Чесне «Знаю»</h3>
+          <p>Якщо згадали лише частково, натисніть «Повторити». Картка повернеться в колоду, і ви побачите її ще раз.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">03</div>
+          <h3>Одразу на практиці</h3>
+          <p>Вивчили принцип — перепишіть за ним заголовок свого останнього поста. Так правило переходить із пам’яті в руку.</p>
+        </div>
+        <div class="cp-reason">
+          <div class="cp-reason-num">04</div>
+          <h3>Першоджерело</h3>
+          <p>«Наукову рекламу» Гопкінса можна не лише вчити, а й надрукувати: вона є в розділі «Копірайтинг» <a href="typing-trainer.html" class="btn-link">клавіатурного тренажера</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<div id="site-footer"></div>
+<script src="../js/main.js"></script>
+<script>
+(() => {
+/* c: category, q: front, a: answer, ex: example, s: source */
+const CARDS = [
+  // Заголовки
+  {c:"Заголовки", q:"Яке головне завдання заголовка?", a:"Зупинити саме вашого читача й змусити прочитати наступне речення. Заголовок не продає продукт — він продає наступний рядок.", ex:"«Для власників кав’ярень: як підняти середній чек на 15% без нової техніки»", s:"Джозеф Шугерман, принцип «ковзної гірки»"},
+  {c:"Заголовки", q:"Що таке формула 4U для заголовка?", a:"Корисний (Useful), унікальний (Unique), терміновий (Urgent), ультраконкретний (Ultra-specific). Чим більше «U» виконано, тим сильніший заголовок.", ex:"«3 листи, які повернули 40% клієнтів до кінця кварталу»", s:"Майкл Мастерсон, AWAI"},
+  {c:"Заголовки", q:"Чому конкретика сильніша за загальні слова?", a:"Загальні твердження («найкращий», «якісний») мозок пропускає як рекламний шум. Цифра чи деталь звучить як факт, який хтось перевірив.", ex:"Не «швидка доставка», а «доставка за 2 години в межах Києва»", s:"Клод Гопкінс, «Наукова реклама»"},
+  {c:"Заголовки", q:"Кого заголовок має «відсіяти»?", a:"Тих, хто не є вашим клієнтом. Звертання до конкретної аудиторії в заголовку краще, ніж спроба сподобатися всім: свої впізнають себе.", ex:"«Маркетологам B2B, які втомилися від нецільових лідів»", s:"Клод Гопкінс, «Наукова реклама»"},
+  {c:"Заголовки", q:"Що таке «відкрита петля» (curiosity gap)?", a:"Заголовок або хук, що ставить питання й обіцяє відповідь далі в тексті. Читач продовжує, щоб закрити петлю. Важливо: відповідь мусить справді бути.", ex:"«Ми прибрали з сайту кнопку “Купити” — і продажі виросли»", s:"Психологія цікавості, Джордж Левенштайн"},
+  {c:"Заголовки", q:"Скільки тексту видно в LinkedIn до «…більше»?", a:"Лише кілька перших рядків, а на телефоні ще менше, ніж на комп’ютері. Головна думка має вміститися до обрізання.", ex:"Перевірте свій пост в інструменті «Попередній перегляд поста».", s:"Content Chameleon"},
+
+  // Формули
+  {c:"Формули", q:"Розшифруйте AIDA.", a:"Attention — увага, Interest — інтерес, Desire — бажання, Action — дія. Текст послідовно веде читача від «помітив» до «зробив».", ex:"Хук → чому це важливо саме вам → як зміниться ваше життя → «запишіться до п’ятниці»", s:"Е. Сент-Елмо Льюїс, кінець XIX ст."},
+  {c:"Формули", q:"Розшифруйте PAS.", a:"Problem — проблема, Agitate — загострення, Solve — рішення. Спершу називаєте біль, потім показуєте його ціну, і лише тоді пропонуєте вихід.", ex:"«Ліди не відповідають? Кожен тиждень мовчання — мінус угода. Ось шаблон, що повертає 1 з 5»", s:"Класична формула директ-маркетингу"},
+  {c:"Формули", q:"Що таке BAB?", a:"Before — After — Bridge. Як є зараз, як могло б бути, і що з’єднує ці два стани (ваш продукт чи порада).", ex:"«Зараз пост пишеться 3 години. Могло б — 30 хвилин. Міст — шаблон із 5 блоків»", s:"Класична формула копірайтингу"},
+  {c:"Формули", q:"Що таке «перевернута піраміда»?", a:"Найважливіше — на початку, деталі — далі за спаданням ваги. Читач, який кинув текст на середині, все одно отримав головне.", ex:"Перше речення новини відповідає на «хто, що, де, коли»", s:"Журналістика, стандарт новинного тексту"},
+  {c:"Формули", q:"Що таке формула FAB?", a:"Feature — характеристика, Advantage — перевага, Benefit — вигода для клієнта. Кожну характеристику доводьте до вигоди.", ex:"«Батарея 5000 мА·год → працює 2 дні → не шукаєте розетку у відрядженні»", s:"Класична техніка продажів"},
+  {c:"Формули", q:"Як працює техніка «І що з того?»", a:"Після кожного твердження про продукт запитайте себе: «І що з того клієнтові?». Повторюйте, доки не дійдете до реальної вигоди.", ex:"«CRM з AI» → і що? → «сама нагадує про дзвінок» → і що? → «жоден лід не загубиться»", s:"Прийом редакторів реклами"},
+
+  // Переконання
+  {c:"Переконання", q:"Чому соціальний доказ працює?", a:"У ситуації невизначеності люди орієнтуються на те, що роблять інші схожі на них. Відгуки, кейси й цифри клієнтів знімають ризик.", ex:"«Цей шаблон уже використали 300 менеджерів з продажу» — але лише якщо цифра справжня", s:"Роберт Чалдіні, «Психологія впливу»"},
+  {c:"Переконання", q:"Що таке принцип дефіциту і де межа?", a:"Обмежене здається ціннішим. Але дефіцит має бути справжнім: вигадані «залишилось 2 місця» руйнують довіру назавжди.", ex:"«Беремо 6 клієнтів на квартал, бо працюємо з кожним особисто»", s:"Роберт Чалдіні, «Психологія впливу»"},
+  {c:"Переконання", q:"Що таке «зняття ризику» (risk reversal)?", a:"Ви берете ризик клієнта на себе: гарантія, безкоштовна проба, оплата за результат. Чим менше клієнт втрачає, тим легше сказати «так».", ex:"«Якщо після першого місяця не побачите зростання охоплень — повернемо гроші»", s:"Директ-маркетинг"},
+  {c:"Переконання", q:"Яким має бути заклик до дії (CTA)?", a:"Один, конкретний і легкий: що зробити, як і що читач отримає. Кілька різних закликів у тексті змагаються між собою.", ex:"Не «Зв’яжіться з нами», а «Напишіть “аудит” у коментарях — надішлю чек-лист»", s:"Практика конверсійного копірайтингу"},
+  {c:"Переконання", q:"Чому історія переконує краще за аргументи?", a:"Історія знижує опір: читач не сперечається, а співпереживає героєві й сам робить висновок. Факти в історії запам’ятовуються краще.", ex:"Кейс клієнта «було — що зробили — що стало» замість списку переваг", s:"Сторітелінг у маркетингу"},
+  {c:"Переконання", q:"Що таке «рівні обізнаності» Шварца?", a:"Від «не знає про проблему» до «знає ваш продукт і готовий купити». Що менш обізнаний читач, то менше в тексті про продукт і більше про його ситуацію.", ex:"Холодній аудиторії — про біль; теплій — про ваше рішення; гарячій — про пропозицію й ціну", s:"Юджин Шварц, «Прорив у рекламі»"},
+
+  // Гопкінс
+  {c:"Гопкінс", q:"Що Гопкінс називав рекламою?", a:"«Продажами в друкованому вигляді» (salesmanship in print). Оцінюйте текст так само, як продавця: скільки він продав, а не наскільки він гарний.", ex:"Спитайте: «Чи допоміг би цей текст продавцю на зустрічі з клієнтом?»", s:"Клод Гопкінс, «Наукова реклама», 1923"},
+  {c:"Гопкінс", q:"Чому Гопкінс радив тестувати рекламу?", a:"Бо будь-яке питання можна вирішити дешево й швидко тестом на малій аудиторії, а не суперечками. Купон чи відстежуване посилання показують, що працює.", ex:"Два варіанти заголовка на невеликій вибірці → масштабуєте переможця", s:"Клод Гопкінс, «Наукова реклама», 1923"},
+  {c:"Гопкінс", q:"Як Гопкінс ставився до «дотепної» реклами?", a:"Скептично. Люди купують не тому, що їх розважили. Легковажність і вигадливість відволікають від пропозиції.", ex:"Каламбур у заголовку замість обіцянки вигоди — типова втрата продажів", s:"Клод Гопкінс, «Наукова реклама», 1923"},
+  {c:"Гопкінс", q:"Чому Гопкінс радив пропонувати сервіс, а не просити купити?", a:"Заклик «купіть у нас» звучить егоїстично. Реклама, яка пропонує допомогу чи цінність, викликає довіру.", ex:"Не «Замовте аудит», а «Покажемо, які 3 пости втрачають вам клієнтів»", s:"Клод Гопкінс, «Наукова реклама», 1923"},
+  {c:"Гопкінс", q:"Що Гопкінс казав про зразки (samples)?", a:"Продукт, який говорить сам за себе, — найкращий продавець. Зразок дає людині переконатися без ризику і повертає вкладення в рекламу.", ex:"Безкоштовний розбір одного поста, тест-драйв, демо-доступ на 14 днів", s:"Клод Гопкінс, «Наукова реклама», 1923"},
+  {c:"Гопкінс", q:"Чому, за Гопкінсом, загальні фрази нічого не варті?", a:"«Найкраще у світі», «найнижчі ціни» — це очікуване хвастощі, їх не сприймають всерйоз. Конкретне твердження сприймається як правда.", ex:"Не «чиста вода», а «вода, яку очищують 7 фільтрами»", s:"Клод Гопкінс, «Наукова реклама», 1923"},
+  {c:"Гопкінс", q:"Чи мають рекламні тексти бути короткими?", a:"Ні, якщо читач зацікавлений. Той, кого ви зачепили, хоче знати все. Довгий текст програє лише тоді, коли він нудний, а не тоді, коли він довгий.", ex:"Лендинг на складний B2B-продукт може бути довгим, якщо кожен блок відповідає на питання клієнта", s:"Клод Гопкінс, «Наукова реклама», 1923"},
+
+  // Редагування
+  {c:"Редагування", q:"Яке правило першого речення?", a:"Єдине завдання першого речення — змусити прочитати друге. Тож воно має бути коротким і легким для входу.", ex:"«Учора ми втратили клієнта.»", s:"Джозеф Шугерман"},
+  {c:"Редагування", q:"Як писати мовою клієнта?", a:"Беріть слова з відгуків, дзвінків і коментарів: так клієнти описують свій біль. Текст звучить так, ніби ви читаєте їхні думки.", ex:"Клієнт каже «ліди зливаються» — пишіть саме так, а не «конверсія лійки знижується»", s:"Практика voice-of-customer"},
+  {c:"Редагування", q:"Чому активний стан кращий за пасивний?", a:"Активний стан показує, хто діє, і робить речення коротшим та енергійнішим.", ex:"Не «Рішення було ухвалено командою», а «Команда вирішила»", s:"Класичні правила редагування"},
+  {c:"Редагування", q:"Що робити зі словами-паразитами?", a:"Видаляти: «дуже», «просто», «насправді», «певною мірою», «здійснювати». Якщо сенс не змінився — слово було зайвим.", ex:"«Ми здійснюємо надання послуг» → «Ми надаємо послуги»", s:"Класичні правила редагування"},
+  {c:"Редагування", q:"Скільки ідей має бути в одному абзаці чи пості?", a:"Одна. Кілька головних думок розмивають текст: читач не запам’ятовує жодної.", ex:"Пост про ціноутворення не розповідає ще й про найм", s:"Принцип однієї ідеї"},
+  {c:"Редагування", q:"Як перевірити текст перед публікацією?", a:"Прочитайте вголос. Де спотикаєтеся — там довге речення, зайве слово чи канцелярит.", ex:"Якщо речення не вимовляється на одному подиху — розбийте його на два", s:"Практика редакторів"},
+];
+
+const CATS = ["Усі", ...[...new Set(CARDS.map(c => c.c))]];
+const STORE = "cc-copy-cards-v1";
+let state = {known:{}, cat:"Усі", onlyNew:false};
+try { const s = JSON.parse(localStorage.getItem(STORE) || "null"); if (s && s.known) state = {...state, ...s}; } catch(e){}
+if (!CATS.includes(state.cat)) state.cat = "Усі";
+const save = () => { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch(e){} };
+
+const $ = id => document.getElementById(id);
+const card = $("fcCard");
+let deck = [], pos = 0, flipped = false;
+
+function buildDeck(shuffle){
+  deck = CARDS.map((c, i) => i).filter(i => state.cat === "Усі" || CARDS[i].c === state.cat)
+    .filter(i => !state.onlyNew || !state.known[i]);
+  if (shuffle) for (let i = deck.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+  pos = 0;
+}
+
+function renderCats(){
+  const box = $("fcCats"); box.innerHTML = "";
+  CATS.forEach(c => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = c;
+    b.setAttribute("aria-pressed", c === state.cat);
+    b.onclick = () => { state.cat = c; save(); buildDeck(false); renderCats(); render(); };
+    box.appendChild(b);
+  });
+}
+
+function setFlip(v){
+  flipped = v;
+  card.classList.toggle("is-flipped", v);
+  card.querySelector(".fc-front").setAttribute("aria-hidden", v);
+  card.querySelector(".fc-back").setAttribute("aria-hidden", !v);
+}
+
+function render(){
+  const pool = CARDS.filter(c => state.cat === "Усі" || c.c === state.cat).length;
+  const known = CARDS.filter((c, i) => (state.cat === "Усі" || c.c === state.cat) && state.known[i]).length;
+  $("fcKnown").textContent = `Вивчено ${known} з ${pool}`;
+  $("fcBar").style.width = (pool ? known / pool * 100 : 0) + "%";
+  const empty = !deck.length;
+  $("fcEmpty").hidden = !empty; card.hidden = empty;
+  ["fcPrev","fcNext","fcAgain","fcKnow"].forEach(id => $(id).disabled = empty);
+  if (empty){ $("fcPos").textContent = "0 / 0"; return; }
+  if (pos >= deck.length) pos = 0;
+  const i = deck[pos], c = CARDS[i];
+  $("fcPos").textContent = `${pos + 1} / ${deck.length}`;
+  $("fcTagFront").textContent = $("fcTagBack").textContent = c.c + (state.known[i] ? " · вивчено" : "");
+  $("fcQ").textContent = c.q; $("fcA").textContent = c.a;
+  $("fcEx").textContent = c.ex; $("fcSrc").textContent = c.s;
+  setFlip(false);
+}
+
+function go(d){ if (!deck.length) return; pos = (pos + d + deck.length) % deck.length; render(); }
+function mark(know){
+  if (!deck.length) return;
+  const i = deck[pos];
+  if (know){
+    state.known[i] = true;
+    if (state.onlyNew){ deck.splice(pos, 1); save(); render(); return; }
+  } else {
+    delete state.known[i];
+    // send the card a few places back into the deck to see it again soon
+    deck.splice(pos, 1);
+    deck.splice(Math.min(pos + 3, deck.length), 0, i);
+    save(); render(); return;
+  }
+  save(); go(1);
+}
+
+card.onclick = () => setFlip(!flipped);
+$("fcPrev").onclick = () => go(-1);
+$("fcNext").onclick = () => go(1);
+$("fcKnow").onclick = () => mark(true);
+$("fcAgain").onclick = () => mark(false);
+$("fcShuffle").onclick = () => { buildDeck(true); render(); };
+$("fcOnlyNew").checked = state.onlyNew;
+$("fcOnlyNew").onchange = e => { state.onlyNew = e.target.checked; save(); buildDeck(false); render(); };
+$("fcReset").onclick = () => { if (confirm("Скинути позначки «Знаю» для всіх карток?")){ state.known = {}; save(); buildDeck(false); render(); } };
+$("fcResetTopic").onclick = () => {
+  CARDS.forEach((c, i) => { if (state.cat === "Усі" || c.c === state.cat) delete state.known[i]; });
+  save(); buildDeck(false); render();
+};
+
+document.addEventListener("keydown", e => {
+  if (e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === " " && !e.target.closest("button")){ e.preventDefault(); setFlip(!flipped); }
+  else if (e.key === "ArrowRight") go(1);
+  else if (e.key === "ArrowLeft") go(-1);
+  else if (e.key === "1") mark(false);
+  else if (e.key === "2") mark(true);
+});
+
+buildDeck(false); renderCats(); render();
+})();
+</script>
+</body>
+</html>
