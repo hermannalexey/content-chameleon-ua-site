@@ -2398,3 +2398,46 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
 .tt .lesson-btn .prog { font-size: 11px; color: var(--tt-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .tt .lesson-btn .prog.full { color: var(--tt-ok); }
 .tt .lesson-btn[aria-current="true"] .prog { color: #0E0F11; }
+
+/* === TOOL: Copywriting flashcards (tools/copy-cards.html) === */
+.fc { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.fc-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.fc-cats { display: flex; flex-wrap: wrap; gap: 6px; }
+.fc-cats button { background: none; border: 1px solid var(--border); border-radius: 3px; padding: 7px 12px; font-family: var(--font-display); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); cursor: pointer; transition: color 0.18s, border-color 0.18s, background-color 0.18s; }
+.fc-cats button:hover { color: var(--text); border-color: var(--text-secondary); }
+.fc-cats button[aria-pressed="true"] { background-color: var(--green); border-color: var(--green); color: #0E0F11; }
+.fc-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-secondary); cursor: pointer; }
+.fc-toggle input { accent-color: var(--green); width: 16px; height: 16px; }
+.fc-progress { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--text-secondary); white-space: nowrap; }
+.fc-scene { perspective: 1400px; }
+.fc-card { position: relative; display: grid; width: 100%; min-height: 340px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+.fc-card[hidden] { display: none; }
+.fc-card.is-flipped { transform: rotateY(180deg); }
+.fc-card:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; border-radius: 8px; }
+.fc-face { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 16px; padding: clamp(24px, 4vw, 44px); border: 1px solid var(--border); border-radius: 8px; background-color: var(--surface); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.fc-front { justify-content: center; border-top: 3px solid var(--green); }
+.fc-back { transform: rotateY(180deg); border-top: 3px solid var(--teal); }
+.fc-tag { font-family: var(--font-display); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-secondary); }
+.fc-q { font-family: var(--font-display); font-size: clamp(22px, 3.2vw, 30px); font-weight: 600; line-height: 1.3; }
+.fc-hint { margin-top: auto; font-size: 13px; color: var(--text-secondary); }
+.fc-a { font-size: clamp(17px, 2vw, 19px); line-height: 1.6; }
+.fc-ex { padding: 12px 16px; border-left: 2px solid var(--green); background-color: rgba(79,157,95,0.08); font-size: 15px; line-height: 1.55; }
+.fc-ex::before { content: 'Приклад'; display: block; margin-bottom: 4px; font-family: var(--font-display); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--green); }
+.fc-src { margin-top: auto; font-size: 13px; color: var(--text-secondary); font-style: italic; }
+.fc-empty { min-height: 340px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; border: 1px dashed var(--border); border-radius: 8px; text-align: center; padding: 24px; }
+.fc-empty[hidden] { display: none; }
+.fc-controls { display: grid; grid-template-columns: auto 1fr 1fr auto; gap: 10px; }
+.fc-controls .btn { justify-content: center; padding: 14px 20px; }
+.fc-controls .btn:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+.fc-again:hover { border-color: #e0a85f; color: #e0a85f; }
+.fc-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+.fc-link { background: none; border: 0; padding: 0; font-family: var(--font-display); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); cursor: pointer; transition: color 0.18s; }
+.fc-link:hover { color: var(--green); }
+.fc-keys { margin-left: auto; font-size: 12px; color: var(--text-secondary); }
+@media (max-width: 600px) {
+  .fc-card, .fc-empty { min-height: 400px; }
+  .fc-controls { grid-template-columns: 1fr 1fr; }
+  .fc-controls #fcPrev { order: 3; } .fc-controls #fcNext { order: 4; }
+  .fc-keys { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .fc-card { transition: none; } }
