@@ -43,7 +43,7 @@ jobs:
         if: steps.gate.outputs.ready == 'true'
         run: |
           mkdir _deploy
-          rsync -a --exclude '.git*' --exclude '.github' --exclude '_deploy' --exclude '*.md' --exclude '.nojekyll' ./ _deploy/
+          rsync -a --exclude '.git*' --exclude '.github' --exclude '_deploy' --exclude '*.md' --exclude '_setup' --exclude '.nojekyll' ./ _deploy/
           cd _deploy
           # Drop the preview-only noindex (404.html keeps its own noindex)
           find . -name '*.html' ! -name '404.html' -print0 | xargs -0 sed -i \
@@ -57,8 +57,10 @@ jobs:
           find . -name '*.html' -print0 | xargs -0 sed -i -E \
             "s#(css/styles\.css|js/main\.js)(\?v=[^\"]*)?\"#\1?v=${GITHUB_SHA::7}\"#g"
           grep -q "styles.css?v=${GITHUB_SHA::7}" index.html || { echo "::error::CSS version stamp missing"; exit 1; }
-          if grep -rl 'noindex' --include='*.html' . | grep -v '^./404.html$'; then
-            echo "::error::noindex still present in the files above"; exit 1
+          # Link-only pages (e.g. algorytmy/) keep their noindex on purpose: they carry data-keep-noindex
+          stray=$(grep -rl 'noindex' --include='*.html' . | grep -v '^./404.html$' | xargs -r grep -L 'data-keep-noindex' || true)
+          if [ -n "$stray" ]; then
+            echo "$stray"; echo "::error::noindex still present in the files above"; exit 1
           fi
 
       - name: Upload over FTP

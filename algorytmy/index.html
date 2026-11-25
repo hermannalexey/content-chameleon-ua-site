@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <!-- Google Analytics 4: runs only on the production domain, not on the GitHub Pages test copy -->
+  <script>
+    if (/(^|\.)content-chameleon\.com$/.test(location.hostname)) {
+      var gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-2GRVBJKWJ1';
+      document.head.appendChild(gaScript);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-2GRVBJKWJ1');
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Link-only page: stays noindex in production too. data-keep-noindex stops the deploy from stripping it. -->
+  <meta name="robots" content="noindex, nofollow" data-keep-noindex>
+  <title>Знов ці алгоритми — гайд по LinkedIn, листопад 2026 — Content Chameleon</title>
+  <meta name="description" content="Прочитали 130+ сторінок звіту про алгоритми LinkedIn за листопад 2026 і переказали живою мовою: що змінилося і що з цим робити.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Знов ці алгоритми. Гайд по LinkedIn, листопад 2026">
+  <meta property="og:description" content="130+ сторінок звіту про алгоритми LinkedIn, переказані живою мовою. З цифрами, мораллю і матюками. 18+.">
+  <meta property="og:image" content="https://www.content-chameleon.com/images/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../images/favicon-32.png">
+  <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+
+  <script>
+    /* ===== SETTINGS: the only two lines to change =====
+       endpoint: the Google Apps Script web app URL (ends with /exec). See _setup/guide-leads/README.md
+       pdf:      link to the guide PDF. Same link goes into GUIDE_URL in the Apps Script. */
+    window.GUIDE = {
+      endpoint: '',
+      pdf: 'znov-ci-algorytmy-linkedin-2026-11.pdf'
+    };
+  </script>
+
+  <style>
+    .lp-top { border-bottom: 1px solid var(--border); }
+    .lp-top-inner { max-width: var(--max-w); margin: 0 auto; padding: 18px var(--side-pad); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .lp-top img { width: 132px; height: auto; }
+    .lp-badge { font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); border: 1px solid var(--border); border-radius: 3px; padding: 4px 8px; white-space: nowrap; }
+
+    .lp-hero { max-width: var(--max-w); margin: 0 auto; padding: clamp(40px, 7vw, 96px) var(--side-pad) clamp(48px, 7vw, 96px); display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+    .lp-hero h1 { font-size: clamp(38px, 6.4vw, 84px); line-height: 0.98; margin-bottom: 28px; }
+    .lp-hero h1 span { color: var(--green); display: block; }
+    .lp-lead { font-size: clamp(17px, 1.6vw, 20px); color: var(--text); max-width: 560px; }
+    .lp-lead + .lp-lead { color: var(--text-secondary); }
+
+    .lp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: clamp(24px, 3vw, 36px); position: sticky; top: 24px; }
+    .lp-card h2 { font-size: 22px; margin-bottom: 8px; }
+    .lp-intro { font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; }
+    .lp-field { display: block; margin-bottom: 14px; }
+    .lp-field span { display: block; font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px; }
+    .lp-field input { width: 100%; font: inherit; font-size: 16px; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 13px 14px; outline: none; transition: border-color .15s; }
+    .lp-field input:focus { border-color: var(--green); }
+    .lp-field input[aria-invalid="true"] { border-color: #C2554B; }
+    .lp-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .lp-card .btn { width: 100%; justify-content: center; margin-top: 6px; padding: 16px 24px; font-size: 14px; }
+    .lp-card .btn[disabled] { opacity: .6; cursor: progress; }
+    .lp-consent { font-size: 12.5px; line-height: 1.55; color: var(--text-secondary); margin-top: 14px; }
+    .lp-error { font-size: 14px; color: #E07A70; margin-top: 12px; display: none; }
+    .lp-warn { margin-top: 18px; padding: 12px 14px; border: 1px dashed #C2554B; border-radius: 3px; font-size: 13px; line-height: 1.5; color: #E07A70; display: none; }
+
+    .lp-done { display: none; }
+    .lp-done h2 { color: var(--green); }
+    .lp-done p { font-size: 15px; color: var(--text-secondary); }
+    .lp-done p + p { margin-top: 12px; }
+    .lp-done .btn { margin: 20px 0 16px; }
+    .is-done .lp-form { display: none; }
+    .is-done .lp-done { display: block; }
+
+    .lp-inside { border-top: 1px solid var(--border); }
+    .lp-inside-inner { max-width: var(--max-w); margin: 0 auto; padding: clamp(56px, 7vw, 96px) var(--side-pad); }
+    .lp-inside h2 { font-size: clamp(26px, 3.4vw, 44px); margin-bottom: clamp(28px, 4vw, 48px); max-width: 760px; }
+    .lp-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--border); border: 1px solid var(--border); }
+    .lp-item { background: var(--bg); padding: 24px 26px; display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; }
+    .lp-num { font-family: var(--font-display); font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: .08em; padding-top: 4px; grid-row: span 2; }
+    .lp-item h3 { font-size: 15px; letter-spacing: .02em; line-height: 1.3; }
+    .lp-item p { font-size: 15px; line-height: 1.6; color: var(--text-secondary); }
+    .lp-item b { color: var(--text); font-weight: 600; }
+
+    .lp-last { border-top: 1px solid var(--border); background: var(--surface); }
+    .lp-last-inner { max-width: 760px; margin: 0 auto; padding: clamp(56px, 7vw, 96px) var(--side-pad); text-align: center; }
+    .lp-last h2 { font-size: clamp(24px, 3vw, 38px); margin-bottom: 16px; }
+    .lp-last p { color: var(--text-secondary); }
+    .lp-last .btn { margin-top: 28px; }
+
+    .lp-foot { border-top: 1px solid var(--border); }
+    .lp-foot-inner { max-width: var(--max-w); margin: 0 auto; padding: 28px var(--side-pad); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--text-secondary); }
+    .lp-foot a { color: var(--green); }
+
+    @media (max-width: 900px) {
+      .lp-hero { grid-template-columns: 1fr; }
+      .lp-card { position: static; }
+      .lp-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .lp-badge { display: none; }
+      .lp-item { padding: 20px 18px; grid-template-columns: 34px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="lp-top">
+  <div class="lp-top-inner">
+    <a href="../index.html"><img src="../images/logo.png" alt="Content Chameleon" width="140" height="38"></a>
+    <span class="lp-badge">Безкоштовний гайд · 18+</span>
+  </div>
+</header>
+
+<main>
+  <section class="lp-hero">
+    <div>
+      <span class="eyebrow">— Алгоритми LinkedIn · Листопад 2026</span>
+      <h1>Знов ці<span>їб*чі алгоритми</span></h1>
+      <p class="lp-lead">Ми прочитали 130+ сторінок Algorithm Insights Report 2026 (November Update), щоб вам не довелося. І переказали, що змінилося в LinkedIn і що з цим робити.</p>
+      <p class="lp-lead">Живою мовою, з цифрами і з матюками. Бо всіх уже все заї… втомило.</p>
+    </div>
+
+    <div class="lp-card" id="lpCard">
+      <form class="lp-form" id="lpForm" novalidate>
+        <h2>Забрати гайд</h2>
+        <p class="lp-intro">Залиште пошту, і гайд відкриється тут же. Копію надішлемо листом, щоб не загубили.</p>
+        <label class="lp-field">
+          <span>Пошта</span>
+          <input type="email" name="email" id="lpEmail" autocomplete="email" inputmode="email" placeholder="you@company.com" required>
+        </label>
+        <label class="lp-field">
+          <span>Ім'я (необов'язково)</span>
+          <input type="text" name="name" autocomplete="given-name" placeholder="Як до вас звертатися">
+        </label>
+        <label class="lp-hp" aria-hidden="true">Не заповнюйте <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <button type="submit" class="btn btn-primary" id="lpSubmit">Скачати гайд →</button>
+        <p class="lp-error" id="lpError" role="alert"></p>
+        <p class="lp-consent">Залишаючи пошту, ви погоджуєтеся отримувати листи від Content Chameleon про LinkedIn і продажі. Без спаму, відписатися можна будь-коли.</p>
+        <div class="lp-warn" id="lpWarn">Форма ще не підключена до Google Таблиці: пошти зараз нікуди не зберігаються. Вставте адресу скрипта в <code>window.GUIDE.endpoint</code>.</div>
+      </form>
+
+      <div class="lp-done" aria-live="polite">
+        <h2>Тримайте</h2>
+        <a class="btn btn-primary" id="lpDownload" href="#" target="_blank" rel="noopener">Відкрити гайд (PDF) →</a>
+        <p>Копія вже летить на <b id="lpDoneEmail"></b>. Не бачите листа за кілька хвилин? Загляньте в «Промоакції» або «Спам».</p>
+        <p>Якщо вам менше 18 або алергія на матюки, закрийте документ і зробіть собі чаю. Ми попереджали.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-inside">
+    <div class="lp-inside-inner">
+      <span class="eyebrow">— Що всередині</span>
+      <h2>10 змін в алгоритмі. До кожної мораль: що робити вже завтра</h2>
+      <div class="lp-list">
+        <div class="lp-item"><span class="lp-num">01</span><h3>Перший рядок</h3><p>Люди втомилися відповідати на ваші риторичні питання. Особиста історія на старті дає <b>×1,27</b> охоплення.</p></div>
+        <div class="lp-item"><span class="lp-num">02</span><h3>Регулярність</h3><p>Вчорашній вірусний пост алгоритму сьогодні байдужий. 2–3 нішеві дописи на тиждень дають <b>×2,55</b> показів.</p></div>
+        <div class="lp-item"><span class="lp-num">03</span><h3>Репости в топку</h3><p>«Колєги, репостніть» дає сторінці <b>×1,00</b>. Той самий допис своїми словами — <b>×7,7</b> реакцій.</p></div>
+        <div class="lp-item"><span class="lp-num">04</span><h3>Охоплення</h3><p>Падають не тільки у вас. Що міряти замість переглядів, щоб бачити клієнтів, а не блох.</p></div>
+        <div class="lp-item"><span class="lp-num">05</span><h3>Теми</h3><p>Як LinkedIn вирішує, хто ви за експерт і кому вас показувати.</p></div>
+        <div class="lp-item"><span class="lp-num">06</span><h3>Контент</h3><p>Чому «5 способів завоювати довіру» більше не їдуть і що писати натомість.</p></div>
+        <div class="lp-item"><span class="lp-num">07</span><h3>Публікація</h3><p>Охоплення тепер приходить пізніше. Не списуйте пост через годину.</p></div>
+        <div class="lp-item"><span class="lp-num">08</span><h3>Формати</h3><p>Коли робити карусель, а коли написати один абзац і не випендрюватися.</p></div>
+        <div class="lp-item"><span class="lp-num">09</span><h3>Що не робити</h3><p>«Напишіть ХОЧУ в коментарях» і інше жебрацтво активності. Чому це вже не працює.</p></div>
+        <div class="lp-item"><span class="lp-num">10</span><h3>AI-пошук</h3><p>ChatGPT тепер радить людей з LinkedIn. Статті там цитують у <b>3,6 раза</b> частіше за пости.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-last">
+    <div class="lp-last-inner">
+      <h2>І не треба після кожного апдейту міняти всю стратегію</h2>
+      <p>Бо через пів року експерти знов щось придумають. У гайді коротко: що з цього справді варто змінити, а що можна пропустити.</p>
+      <a href="#lpCard" class="btn btn-primary" id="lpJump">Забрати гайд →</a>
+    </div>
+  </section>
+</main>
+
+<footer class="lp-foot">
+  <div class="lp-foot-inner">
+    <span>© Content Chameleon. Гайд за мотивами Algorithm Insights Report 2026 — November Update.</span>
+    <a href="../index.html">content-chameleon.com →</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var cfg = window.GUIDE || {};
+  var form = document.getElementById('lpForm');
+  var card = document.getElementById('lpCard');
+  var email = document.getElementById('lpEmail');
+  var btn = document.getElementById('lpSubmit');
+  var err = document.getElementById('lpError');
+  var STORE = 'cc_guide_algorytmy_2026_11';
+
+  if (!cfg.endpoint) document.getElementById('lpWarn').style.display = 'block';
+  document.getElementById('lpDownload').href = cfg.pdf;
+
+  // Where the visitor came from: utm_* in the link (e.g. ?utm_source=tiktok), else the referrer
+  var qs = new URLSearchParams(location.search);
+  var utm = {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) { utm[k] = qs.get(k) || ''; });
+  if (!utm.utm_source && qs.get('s')) utm.utm_source = qs.get('s');
+
+  function showDone(addr) {
+    document.getElementById('lpDoneEmail').textContent = addr;
+    card.classList.add('is-done');
+  }
+
+  // Someone who already signed up on this device goes straight to the download
+  try {
+    var saved = localStorage.getItem(STORE);
+    if (saved) showDone(saved);
+  } catch (e) {}
+
+  document.getElementById('lpJump').addEventListener('click', function () {
+    setTimeout(function () { if (!card.classList.contains('is-done')) email.focus({ preventScroll: true }); }, 400);
+  });
+
+  function fail(msg) {
+    err.textContent = msg;
+    err.style.display = 'block';
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    err.style.display = 'none';
+    var addr = email.value.trim().toLowerCase();
+    var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(addr);
+    email.setAttribute('aria-invalid', ok ? 'false' : 'true');
+    if (!ok) { fail('Схоже, в пошті помилка. Перевірте, будь ласка.'); email.focus(); return; }
+    if (form.website.value) { showDone(addr); return; } // bot
+
+    var data = new URLSearchParams({
+      email: addr,
+      name: form.name.value.trim(),
+      utm_source: utm.utm_source,
+      utm_medium: utm.utm_medium,
+      utm_campaign: utm.utm_campaign,
+      utm_content: utm.utm_content,
+      referrer: document.referrer || '',
+      page: location.origin + location.pathname,
+      guide: 'algorytmy-2026-11'
+    });
+
+    btn.disabled = true;
+    btn.textContent = 'Секунду…';
+
+    var send = cfg.endpoint
+      // Apps Script does not send CORS headers, so the response is opaque: a resolved fetch means it was delivered
+      ? fetch(cfg.endpoint, { method: 'POST', mode: 'no-cors', body: data, keepalive: true })
+      : Promise.resolve();
+
+    send.then(function () {
+      try { localStorage.setItem(STORE, addr); } catch (e) {}
+      if (window.gtag) gtag('event', 'generate_lead', { lead_source: utm.utm_source || 'direct', guide: 'algorytmy-2026-11' });
+      showDone(addr);
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Скачати гайд →';
+      fail('Не вийшло відправити. Перевірте інтернет і спробуйте ще раз.');
+    });
+  });
+})();
+</script>
+</body>
+</html>
