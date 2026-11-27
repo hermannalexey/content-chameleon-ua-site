@@ -5,6 +5,8 @@
   "compatibility_date": "2026-11-01",
   // No per-version preview URLs: the GitHub Pages copy is the test site
   "preview_urls": false,
+  // The site is served on www.content-chameleon.com via a zone route; no public *.workers.dev copy
+  "workers_dev": false,
   "assets": {
     "directory": "./_deploy",
     "html_handling": "none",
