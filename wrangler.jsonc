@@ -1,0 +1,11 @@
+// Cloudflare Workers static assets: serves _deploy/ (built by _setup/build-production.sh).
+// html_handling "none" keeps URLs exactly as they are (/about.html stays /about.html).
+{
+  "name": "content-chameleon-site",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./_deploy",
+    "html_handling": "none",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,3 +1,6 @@
 HANDOFF.md
 REVIEW-NOTES.md
 _texts-last-sync/
+_deploy/
+.wrangler/
+node_modules/

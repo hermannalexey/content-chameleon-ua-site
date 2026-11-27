@@ -1,0 +1,20 @@
+# Cloudflare security headers (same as .htaccess on the old host). GitHub Pages ignores this file.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+
+# HTML is always revalidated; CSS/JS carry a version stamp, so they can be cached
+/css/*
+  Cache-Control: public, max-age=604800
+/js/*
+  Cache-Control: public, max-age=604800
+/images/*
+  Cache-Control: public, max-age=2592000
+
+# Link-only lead magnets: never index the PDFs
+/*.pdf
+  X-Robots-Tag: noindex, nofollow
