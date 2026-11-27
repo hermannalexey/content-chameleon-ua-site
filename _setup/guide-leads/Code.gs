@@ -1,9 +1,6 @@
-/**
- * Content Chameleon — збір пошт з лендінгу гайда (content-chameleon.com/algorytmy/)
- *
- * Вставляється в Google Таблицю: Розширення → Apps Script. Інструкція: README.md поруч.
- * Що робить: кожна заявка = новий рядок у вкладці «Ліди» + лист людині з посиланням на гайд.
- */
+// Content Chameleon — збір пошт з лендінгу гайда (content-chameleon.com/algorytmy/)
+// Окремий проєкт Apps Script, пише в таблицю за SHEET_ID. Інструкція: _setup/guide-leads/README.md у репозиторії сайту.
+// Що робить: кожна заявка = новий рядок у вкладці «Ліди» + лист людині з посиланням на гайд.
 
 // ===== НАЛАШТУВАННЯ =====
 // Посилання на PDF гайда. Те саме, що в window.GUIDE.pdf на сторінці, але ПОВНЕ (з https://).
@@ -11,10 +8,12 @@ var GUIDE_URL = 'https://www.content-chameleon.com/algorytmy/znov-ci-algorytmy-l
 var SENDER_NAME = 'Content Chameleon';
 var REPLY_TO = ''; // напр. адреса, на яку мають приходити відповіді; порожньо = ваша пошта
 var SHEET_NAME = 'Ліди';
+// Таблиця «Ліди — гайд «Знов ці алгоритми» (листопад 2026)» у папці на Drive
+var SHEET_ID = '1WswMXhNskF8mfC_9ntD-IWHzTgp1fQLTnbilo1IeFR8';
 // =========================
 
 var HEADERS = ['Дата', 'Email', "Ім'я", 'Джерело (utm_source)', 'utm_medium', 'utm_campaign', 'utm_content',
-               'Referrer', 'Гайд', 'Повторно?', 'Лист надіслано', 'Статус у CRM'];
+  'Referrer', 'Гайд', 'Повторно?', 'Лист надіслано', 'Статус у CRM'];
 
 function doPost(e) {
   var p = (e && e.parameter) || {};
@@ -66,7 +65,7 @@ function sendGuide(email, name) {
 }
 
 function getSheet() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById(SHEET_ID);
   var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(HEADERS);
@@ -97,7 +96,7 @@ function out(s) {
   return ContentService.createTextOutput(s).setMimeType(ContentService.MimeType.TEXT);
 }
 
-// Запустіть один раз вручну (кнопка ▶ Run), щоб дати дозволи і отримати тестовий лист на свою пошту
+// Запустіть один раз вручну (кнопка Run), щоб дати дозволи і отримати тестовий лист на свою пошту
 function testSetup() {
   getSheet();
   sendGuide(Session.getActiveUser().getEmail(), 'Тест');

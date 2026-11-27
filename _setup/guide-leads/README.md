@@ -5,22 +5,19 @@
 
 На сторінку не веде жодне посилання з сайту, її немає в sitemap, і вона закрита від Google (`noindex`) навіть у продакшні.
 
-## 1. Google Таблиця (5 хвилин, один раз)
+## 1. Google Таблиця і скрипт (вже налаштовано 27.11.2026)
 
-1. Створіть нову Google Таблицю, наприклад «Ліди — гайд алгоритми LinkedIn».
-2. **Розширення → Apps Script.** Видаліть усе в `Code.gs` і вставте вміст файла `Code.gs` з цієї папки. Збережіть (💾).
-3. Зверху виберіть функцію `testSetup` → **▶ Run** → дайте дозволи (Google попередить «неперевірений застосунок»: Advanced → Go to … → Allow). Вам прийде тестовий лист, а в таблиці з'явиться вкладка «Ліди».
-4. **Deploy → New deployment** → ⚙ **Web app**:
-   - Execute as: **Me**
-   - Who has access: **Anyone**
-   → Deploy → скопіюйте **Web app URL** (закінчується на `/exec`).
-5. Вставте цей URL у `algorytmy/index.html` у рядок `endpoint: ''`.
+- Таблиця: [Ліди — гайд «Знов ці алгоритми» (листопад 2026)](https://docs.google.com/spreadsheets/d/1WswMXhNskF8mfC_9ntD-IWHzTgp1fQLTnbilo1IeFR8/edit), вкладка «Ліди».
+- Скрипт: окремий проєкт Apps Script [«Ліди — гайд Знов ці алгоритми (форма сайту)»](https://script.google.com/home/projects/1IhRxnCI_fGvXnruWuz6CnerPVPEZzqbz_7p03V4SB-RxZgRp4lCe3Y1Z/edit). Код = `Code.gs` з цієї папки.
+- Опублікований як Web app (Execute as: Me, Who has access: Anyone). Його `/exec`-адреса стоїть у `window.GUIDE.endpoint` на сторінці.
 
-Якщо потім змінюєте код скрипта: **Deploy → Manage deployments → ✏ → Version: New version**, інакше працюватиме стара версія. URL при цьому не змінюється.
+Якщо змінюєте код скрипта: вставте новий код у проєкт, потім **Deploy → Manage deployments → ✏ → Version: New version → Deploy**, інакше працюватиме стара версія. Адреса `/exec` при цьому не змінюється.
+
+Для нового гайда: скопіюйте сторінку і скрипт, поміняйте `GUIDE_URL`, `SHEET_ID` (або той самий, з іншою вкладкою `SHEET_NAME`) і зробіть новий deployment.
 
 ## 2. Гайд (коли дизайнер віддасть PDF)
 
-Покладіть PDF у папку `algorytmy/` з назвою `znov-ci-algorytmy-linkedin-2026-11.pdf`.
+PDF лежить у `algorytmy/znov-ci-algorytmy-linkedin-2026-11.pdf`. Новий варіант від дизайнера просто покладіть замість нього з тією ж назвою.
 Якщо хочете тримати PDF на Google Drive замість сайту — вставте посилання і в `window.GUIDE.pdf` на сторінці, і в `GUIDE_URL` у скрипті.
 
 ## 3. Посилання для соцмереж
