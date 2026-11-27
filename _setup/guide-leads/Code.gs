@@ -10,6 +10,10 @@ var REPLY_TO = ''; // напр. адреса, на яку мають прихо�
 var SHEET_NAME = 'Ліди';
 // Таблиця «Ліди — гайд «Знов ці алгоритми» (листопад 2026)» у папці на Drive
 var SHEET_ID = '1WswMXhNskF8mfC_9ntD-IWHzTgp1fQLTnbilo1IeFR8';
+// Захист від спаму: скільки листів максимум за годину і за добу (решта заявок все одно пишеться в таблицю)
+var MAX_MAILS_PER_HOUR = 30;
+var MAX_MAILS_PER_DAY = 80;
+var GUIDE_ID = 'algorytmy-2026-11'; // має збігатися з полем guide на сторінці
 // =========================
 
 var HEADERS = ['Дата', 'Email', "Ім'я", 'Джерело (utm_source)', 'utm_medium', 'utm_campaign', 'utm_content',
@@ -18,7 +22,9 @@ var HEADERS = ['Дата', 'Email', "Ім'я", 'Джерело (utm_source)', 'u
 function doPost(e) {
   var p = (e && e.parameter) || {};
   var email = String(p.email || '').trim().toLowerCase();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return out('bad email');
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return out('bad email');
+  // Бот: заповнив приховане поле або прийшов не з нашої форми. Відповідаємо «ok», щоб не підказувати.
+  if (p.website || p.guide !== GUIDE_ID) return out('ok');
 
   var lock = LockService.getScriptLock();
   lock.waitLock(20000);
@@ -30,8 +36,10 @@ function doPost(e) {
     var repeat = existing.indexOf(email) !== -1;
 
     var mailed = 'ні';
-    if (!repeat) {
-      try { sendGuide(email, clean(p.name)); mailed = 'так'; }
+    if (!repeat && !underMailLimit()) {
+      mailed = 'ні (ліміт спаму)';
+    } else if (!repeat) {
+      try { sendGuide(email, safeName(p.name)); mailed = 'так'; }
       catch (err) { mailed = 'помилка: ' + err.message; }
     } else {
       mailed = 'ні (повтор)';
@@ -44,6 +52,28 @@ function doPost(e) {
     lock.releaseLock();
   }
   return out('ok');
+}
+
+// Ім'я потрапляє в лист. Дозволяємо тільки літери, пробіли, апостроф і дефіс; якщо є щось інше
+// (посилання, HTML, цифри) — звертаємось без імені, щоб форму не можна було використати для розсилки чужого тексту.
+function safeName(v) {
+  var n = String(v || '').replace(/\s+/g, ' ').trim();
+  return /^[\p{L}' ’ʼ-]{2,40}$/u.test(n) ? n : '';
+}
+
+// Лічильники листів за годину і за добу (ScriptProperties; викликається під LockService). true = ще можна надсилати.
+function underMailLimit() {
+  var props = PropertiesService.getScriptProperties();
+  var now = new Date();
+  var hour = Utilities.formatDate(now, 'UTC', 'yyyyMMddHH');
+  var day = hour.slice(0, 8);
+  var c = JSON.parse(props.getProperty('mailCount') || '{}');
+  if (c.day !== day) c = { day: day, d: 0, hour: hour, h: 0 };
+  if (c.hour !== hour) { c.hour = hour; c.h = 0; }
+  if (c.h >= MAX_MAILS_PER_HOUR || c.d >= MAX_MAILS_PER_DAY) return false;
+  c.h++; c.d++;
+  props.setProperty('mailCount', JSON.stringify(c));
+  return true;
 }
 
 function sendGuide(email, name) {
