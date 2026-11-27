@@ -9,7 +9,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-SHA="${WORKERS_CI_COMMIT_SHA:-${GITHUB_SHA:-$(git rev-parse HEAD 2>/dev/null || date +%s)}}"
+# Prefer git's own commit id: CI variables can hold a branch name instead of a sha
+SHA="$(git rev-parse HEAD 2>/dev/null || true)"
+case "$SHA" in
+  [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*) ;;
+  *) SHA="$(date -u +%Y%m%d%H%M%S)" ;;
+esac
 V="${SHA:0:7}"
 
 rm -rf _deploy
