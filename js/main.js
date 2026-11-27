@@ -3,12 +3,13 @@
 const NAV = (b) => `
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="${b}index.html" class="nav-logo"><img src="${b}images/logo.png" alt="Content Chameleon" width="140" height="38"></a>
+    <a href="${b || './'}" class="nav-logo"><img src="${b}images/logo.png" alt="Content Chameleon" width="140" height="38"></a>
     <div class="nav-links" id="navLinks">
-      <a href="${b}systems/index.html">Офери</a>
-      <a href="${b}conferences/index.html">Конференції</a>
-      <a href="${b}courses/index.html">Навчання</a>
-      <a href="${b}tools/index.html">Інструменти</a>
+      <a href="${b}sales.html" title="Клієнти з LinkedIn">Клієнти</a>
+      <a href="${b}brand.html" title="Особистий бренд у LinkedIn">Бренд</a>
+      <a href="${b}systems/">Офери</a>
+      <a href="${b}conferences/">Конференції</a>
+      <a href="${b}courses/">Навчання</a>
       <a href="${b}pricing.html">Ціни</a>
       <a href="${b}faq.html">Питання</a>
       <a href="${b}about.html">Про нас</a>
@@ -31,10 +32,12 @@ const FOOTER = (b) => `
       <div>
         <div class="footer-col-heading">Сайт</div>
         <div class="footer-col-links">
-          <a href="${b}systems/index.html">Офери</a>
-          <a href="${b}conferences/index.html">Конференції</a>
-          <a href="${b}courses/index.html">Навчання</a>
-          <a href="${b}tools/index.html">Інструменти</a>
+          <a href="${b}sales.html">Клієнти з LinkedIn</a>
+          <a href="${b}brand.html">Особистий бренд</a>
+          <a href="${b}systems/">Офери</a>
+          <a href="${b}conferences/">Конференції</a>
+          <a href="${b}courses/">Навчання</a>
+          <a href="${b}tools/">Інструменти</a>
           <a href="${b}pricing.html">Ціни</a>
           <a href="${b}about.html">Про нас</a>
           <a href="${b}compare.html">Порівняння</a>

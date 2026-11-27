@@ -2034,7 +2034,7 @@ a.team-li:hover { color: var(--green); border-bottom-color: var(--green); }
 
 /* polaroid with the lecturer */
 .cr-lay-photo { left: 9%; bottom: 7%; width: 21%; background-color: #fff; padding: 1.2cqw 1.2cqw 4.4cqw; transform: rotate(5deg); }
-.cr-lay-photo img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.cr-lay-photo img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
 .cr-lay-photo b { position: absolute; left: 0; right: 0; bottom: 1.2cqw; text-align: center; font-family: var(--font-display); font-weight: 600; font-size: 1.6cqw; color: #0E0F11; }
 
 /* price sticker */
