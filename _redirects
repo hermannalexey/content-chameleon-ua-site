@@ -34,3 +34,25 @@
 /xmlrpc.php                           /                 301
 /feed                                 /                 301
 /feed/*                               /                 301
+
+# Short URLs without .html -> the canonical .html page
+/pricing                             /pricing.html  301
+/contact                             /contact.html  301
+/about                               /about.html  301
+/audits                              /audits.html  301
+/compare                             /compare.html  301
+/faq                                 /faq.html  301
+/sales                               /sales.html  301
+/brand                               /brand.html  301
+/vacancies                           /vacancies.html  301
+/systems/outreach                    /systems/outreach.html  301
+/systems/social-selling              /systems/social-selling.html  301
+/systems/demand-generation           /systems/demand-generation.html  301
+/systems/personal-brand              /systems/personal-brand.html  301
+/systems/company-page                /systems/company-page.html  301
+/courses/storytelling                /courses/storytelling.html  301
+/courses/interviews                  /courses/interviews.html  301
+/courses/matrix                      /courses/matrix.html  301
+/conferences/sprint                  /conferences/sprint.html  301
+/tools/post-preview                  /tools/post-preview.html  301
+/tools/typing-trainer                /tools/typing-trainer.html  301
