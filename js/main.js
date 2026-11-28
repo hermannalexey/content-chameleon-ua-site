@@ -76,11 +76,13 @@ const FOOTER = (b) => `
 document.addEventListener('DOMContentLoaded', () => {
   const b = window.BASE_PATH || '';
 
+  // Pages normally arrive with the menu and footer already in the HTML
+  // (_setup/render-chrome.py); inject only into a placeholder that is still empty.
   const headerEl = document.getElementById('site-header');
-  if (headerEl) headerEl.innerHTML = NAV(b);
+  if (headerEl && !headerEl.children.length) headerEl.innerHTML = NAV(b);
 
   const footerEl = document.getElementById('site-footer');
-  if (footerEl) footerEl.innerHTML = FOOTER(b);
+  if (footerEl && !footerEl.children.length) footerEl.innerHTML = FOOTER(b);
 
   // Active nav state
   (function () {
